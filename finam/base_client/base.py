@@ -25,7 +25,7 @@ class BaseClient(ABC):
         async with aiohttp.ClientSession(headers=self._auth_headers) as session:
             async with session.request(method, uri, json=payload, **kwargs) as response:
                 if response.status != 200:
-                    return response.json()
+                    response.raise_for_status()
 
                 if response.content_type == "application/json":
                     return await response.json()

@@ -8,5 +8,12 @@ class PortfolioClient(BaseClient):
         self._portfolio_url = "api/v1/portfolio"
 
     async def get_portfolio(self, params: PortfolioRequestModel) -> PortfolioResponseModel:
-        r = await self._exec_request(self.RequestMethod.GET, self._portfolio_url, params=params.json(by_alias=True))
-        return PortfolioResponseModel(**r)
+        params = {
+            "ClientId": params.client_id,
+            "Content.IncludeCurrencies": str(params.include_currencies),
+            "Content.IncludeMoney": str(params.include_money),
+            "Content.IncludePositions": str(params.include_positions),
+            "Content.IncludeMaxBuySell": str(params.include_maxBuySell),
+        }
+        response = await self._exec_request(self.RequestMethod.GET, self._portfolio_url, params=params)
+        return PortfolioResponseModel(**response)

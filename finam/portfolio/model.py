@@ -1,24 +1,31 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from finam.models import BaseErrorModel
 
 
 class PortfolioRequestOptionalModel(BaseModel):
-    include_currencies: bool = Field(False, alias='Content.IncludeCurrencies')
-    include_money: bool = Field(False, alias='Content.IncludeMoney')
-    include_positions: bool = Field(False, alias='Content.IncludePositions')
-    include_maxBuySell: bool = Field(False, alias='Content.IncludeMaxBuySell')
+    include_currencies: bool = False
+    include_money: bool = False
+    include_positions: bool = False
+    include_maxBuySell: bool = False
 
 
 class PortfolioRequestModel(PortfolioRequestOptionalModel):
     client_id: str
 
 
+class PortfolioContent(BaseModel):
+    includeCurrencies: bool
+    includeMoney: bool
+    includePositions: bool
+    includeMaxBuySell: bool
+
+
 class PortfolioResponseData(BaseModel):
     clientId: str
-    content: PortfolioRequestOptionalModel
+    content: PortfolioContent
     equity: float
     balance: float
     positions: list = []

@@ -1,15 +1,15 @@
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from finam.models import BaseErrorModel
 
 
 class PortfolioRequestOptionalModel(BaseModel):
-    includeCurrencies: bool = False
-    includeMoney: bool = False
-    includePositions: bool = False
-    includeMaxBuySell: bool = False
+    include_currencies: bool = Field(False, alias='Content.IncludeCurrencies')
+    include_money: bool = Field(False, alias='Content.IncludeMoney')
+    include_positions: bool = Field(False, alias='Content.IncludePositions')
+    include_maxBuySell: bool = Field(False, alias='Content.IncludeMaxBuySell')
 
 
 class PortfolioRequestModel(PortfolioRequestOptionalModel):

@@ -2,7 +2,7 @@ from finam.base_client.base import BaseClient
 from finam.portfolio.model import PortfolioRequestModel, PortfolioResponseModel
 
 
-class Portfolio(BaseClient):
+class PortfolioClient(BaseClient):
     def __init__(self, token: str):
         super().__init__(token)
         self._portfolio_url = "api/v1/portfolio"

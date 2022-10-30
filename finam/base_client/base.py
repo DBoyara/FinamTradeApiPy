@@ -15,17 +15,17 @@ class BaseClient(ABC):
         self._token = token
         self._base_url = "https://trade-api.comon.ru"
 
-    def _get_auth_headers(self):
-        return {"Authorization": f"Bearer {self._token}"}
+    @property
+    def _auth_headers(self):
+        return {"X-Api-Key": self._token}
 
     async def _exec_request(self, method: str, url: str, payload=None, **kwargs):
-        headers = self._get_auth_headers()
         uri = f"{self._base_url}/{url}"
 
-        async with aiohttp.ClientSession(headers=headers) as session:
+        async with aiohttp.ClientSession(headers=self._auth_headers) as session:
             async with session.request(method, uri, json=payload, **kwargs) as response:
                 if response.status != 200:
-                    return response.json()
+                    response.raise_for_status()
 
                 if response.content_type == "application/json":
                     return await response.json()

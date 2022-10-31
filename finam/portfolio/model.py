@@ -6,14 +6,14 @@ from finam.models import BaseErrorModel
 
 
 class PortfolioRequestOptionalModel(BaseModel):
-    include_currencies: bool = False
-    include_money: bool = False
-    include_positions: bool = False
-    include_maxBuySell: bool = False
+    includeCurrencies: str = "false"
+    includeMoney: str = "false"
+    includePositions: str = "false"
+    includeMaxBuySell: str = "false"
 
 
 class PortfolioRequestModel(PortfolioRequestOptionalModel):
-    client_id: str
+    clientId: str
 
 
 class PortfolioContent(BaseModel):

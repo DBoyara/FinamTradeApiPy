@@ -8,7 +8,10 @@ from finam.order.model import (
     DelOrderModel,
     CreateOrderRequestModel,
     CreateOrderResponseModel,
-    DelOrderResponseModel
+    DelOrderResponseModel,
+    StopOrdersResponseModel,
+    DelStopOrderRequestModel,
+    DelStopOrderResponseModel as DelStopOrderResponse
 )
 
 
@@ -32,7 +35,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.POST,
             self._order_url,
-            payload.dict(exclude_none=True)
+            payload.dict(exclude_defaults=True)
         )
         if not ok:
             return ErrorBodyModel(**response)
@@ -47,3 +50,23 @@ class OrderClient(BaseClient):
         if not ok:
             return ErrorBodyModel(**response)
         return DelOrderResponseModel(**response)
+
+    async def get_stop_orders(self, params: OrdersRequestModel) -> Union[StopOrdersResponseModel, ErrorBodyModel]:
+        response, ok = await self._exec_request(
+            self.RequestMethod.GET,
+            self._stop_order_url,
+            params.dict(exclude_none=True)
+        )
+        if not ok:
+            return ErrorBodyModel(**response)
+        return StopOrdersResponseModel(**response)
+
+    async def del_stop_order(self, params: DelStopOrderRequestModel) -> Union[DelStopOrderResponse, ErrorBodyModel]:
+        response, ok = await self._exec_request(
+            self.RequestMethod.DELETE,
+            self._stop_order_url,
+            params.dict()
+        )
+        if not ok:
+            return ErrorBodyModel(**response)
+        return DelStopOrderResponse(**response)

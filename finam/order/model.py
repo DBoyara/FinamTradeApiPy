@@ -36,7 +36,7 @@ class OrdersRequestModel(BaseModel):
     clientId: str
     includeMatched: Optional[str] = None
     includeCanceled: Optional[str] = None
-    includeActive: str = "true"
+    includeActive: Optional[str] = None
 
 
 class Condition(BaseModel):
@@ -77,6 +77,20 @@ class OrdersResponseModel(BaseModel):
     data: OrdersResponseData
 
 
+class StopOrder(BaseModel):
+    stopOrderId: int
+    securityCode: str
+
+
+class StopOrdersResponseData(BaseModel):
+    clientId: str
+    stopOrders: List[StopOrder]
+
+
+class StopOrdersResponseModel(BaseModel):
+    data: StopOrdersResponseData
+
+
 class CreatedOrder(BaseModel):
     clientId: str
     transactionId: int
@@ -94,8 +108,8 @@ class CreateOrderRequestModel(BaseModel):
     buySell: OrderType
     quantity: int
     useCredit: bool = False
-    price: float = 0
-    property: PropertyType = PropertyType.PutInQueue.value
+    price: Optional[float]
+    property: PropertyType
     condition: Optional[Condition] = None
     validateBefore: Optional[ValidateBefore] = None
 
@@ -107,3 +121,17 @@ class DelOrderModel(BaseModel):
 
 class DelOrderResponseModel(BaseModel):
     data: DelOrderModel
+
+
+class DelStopOrderRequestModel(BaseModel):
+    clientId: str
+    stopOrderId: int
+
+
+class DelStopOrderData(BaseModel):
+    clientId: str
+    stopOrderId: int
+
+
+class DelStopOrderResponseModel(BaseModel):
+    data: DelStopOrderData

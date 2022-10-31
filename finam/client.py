@@ -1,5 +1,10 @@
+from finam.order.order import OrderClient
 from finam.portfolio.portfolio import PortfolioClient
+from finam.securities.securities import SecurityClient
 
 
-class Portfolio(PortfolioClient):
-    pass
+class Client:
+    def __init__(self, token: str):
+        self.portfolio = PortfolioClient(token)
+        self.securities = SecurityClient(token)
+        self.orders = OrderClient(token)

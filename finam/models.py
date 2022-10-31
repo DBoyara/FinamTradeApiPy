@@ -1,11 +1,13 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
-class ErrorBodyModel(BaseModel):
+class BaseErrorModel(BaseModel):
     code: str
     message: str
-    data: dict
+    data: Optional[dict]
 
 
-class BaseErrorModel(BaseModel):
-    error: ErrorBodyModel
+class ErrorBodyModel(BaseModel):
+    error: BaseErrorModel

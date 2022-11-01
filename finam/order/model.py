@@ -10,14 +10,14 @@ class OrderType(str, Enum):
 
 
 class ConditionType(str, Enum):
-    Bid = "Bid"
-    BidOrLast = "BidOrLast"
-    Ask = "Ask"
-    AskOrLast = "AskOrLast"
-    CovDown = "CovDown"
-    CovUp = "CovUp"
-    LastUp = "LastUp"
-    LastDown = "LastDown"
+    Bid = "Bid"  # лучшая цена покупки
+    BidOrLast = "BidOrLast"  # лучшая цена покупки или сделка по заданной цене и выше
+    Ask = "Ask"  # лучшая цена продажи
+    AskOrLast = "AskOrLast"  # лучшая цена продажи или сделка по заданной цене и ниже
+    CovDown = "CovDown"  # обеспеченность ниже заданной
+    CovUp = "CovUp"  # обеспеченность выше заданной
+    LastUp = "LastUp"  # сделка на рынке по заданной цене или выше
+    LastDown = "LastDown"  # сделка на рынке по заданной цене или ниже
 
 
 class PropertyType(str, Enum):
@@ -27,9 +27,9 @@ class PropertyType(str, Enum):
 
 
 class ValidBeforeType(str, Enum):
-    TillEndSession = "TillEndSession"
-    TillCancelled = "TillCancelled"
-    ExactTime = "ExactTime"
+    TillEndSession = "TillEndSession"  # до конца дня
+    TillCancelled = "TillCancelled"  # до отмены
+    ExactTime = "ExactTime"  # до указанной даты
 
 
 class OrdersRequestModel(BaseModel):
@@ -40,7 +40,7 @@ class OrdersRequestModel(BaseModel):
 
 
 class Condition(BaseModel):
-    type: str
+    type: ConditionType
     price: float
     time: str
 

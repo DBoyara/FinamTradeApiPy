@@ -32,6 +32,10 @@ class ValidBeforeType(str, Enum):
     ExactTime = "ExactTime"  # до указанной даты
 
 
+class BoardType(str, Enum):
+    Futures = "FUT"
+
+
 class OrdersRequestModel(BaseModel):
     clientId: str
     includeMatched: Optional[str] = None
@@ -41,13 +45,13 @@ class OrdersRequestModel(BaseModel):
 
 class Condition(BaseModel):
     type: ConditionType
-    price: float
-    time: str
+    price: float  # цена активации
+    time: Optional[str] = None
 
 
 class ValidateBefore(BaseModel):
     type: ValidBeforeType
-    time: str
+    time: Optional[str] = None
 
 
 class OrderResponse(BaseModel):
@@ -55,15 +59,15 @@ class OrderResponse(BaseModel):
     transactionId: int
     securityCode: str
     clientId: str
-    status: Any
+    status: str
     buySell: OrderType
-    createdAt: str
+    createdAt: Optional[str] = None
     acceptedAt: Optional[str] = None
-    price: float
+    price: Optional[float]  # цена заявки
     quantity: int
     balance: int
-    message: str
-    currency: str
+    message: Optional[str] = None
+    currency: Optional[str] = None
     condition: Optional[Condition] = None
     validateBefore: Optional[ValidateBefore] = None
 
@@ -103,7 +107,7 @@ class CreateOrderResponseModel(BaseModel):
 
 class CreateOrderRequestModel(BaseModel):
     clientId: str
-    board: str
+    board: BoardType
     securityCode: str
     buySell: OrderType
     quantity: int

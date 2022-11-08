@@ -6,10 +6,10 @@ from finam.models import BaseErrorModel
 
 
 class PortfolioRequestOptionalModel(BaseModel):
-    includeCurrencies: str = "false"
+    includeCurrencies: str = "true"
     includeMoney: str = "false"
-    includePositions: str = "false"
-    includeMaxBuySell: str = "false"
+    includePositions: str = "true"
+    includeMaxBuySell: str = "true"
 
 
 class PortfolioRequestModel(PortfolioRequestOptionalModel):

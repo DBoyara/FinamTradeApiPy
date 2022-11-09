@@ -9,6 +9,10 @@ class OrderType(str, Enum):
     Buy = "Buy"
 
 
+class BoardType(str, Enum):
+    Futures = "FUT"
+
+
 class ConditionType(str, Enum):
     Bid = "Bid"  # лучшая цена покупки
     BidOrLast = "BidOrLast"  # лучшая цена покупки или сделка по заданной цене и выше

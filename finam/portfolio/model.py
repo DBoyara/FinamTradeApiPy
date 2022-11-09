@@ -1,15 +1,11 @@
-from typing import Any
-
 from pydantic import BaseModel
-
-from finam.models import BaseErrorModel
 
 
 class PortfolioRequestOptionalModel(BaseModel):
     includeCurrencies: str = "true"
     includeMoney: str = "false"
-    includePositions: str = "true"
     includeMaxBuySell: str = "true"
+    includePositions: str = "true"
 
 
 class PortfolioRequestModel(PortfolioRequestOptionalModel):
@@ -35,8 +31,3 @@ class PortfolioResponseData(BaseModel):
 
 class PortfolioResponseModel(BaseModel):
     data: PortfolioResponseData
-    error: Any
-
-
-class PortfolioErrorModel(BaseErrorModel):
-    ...

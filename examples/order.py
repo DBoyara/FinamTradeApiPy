@@ -2,12 +2,12 @@ import os
 
 from finam.client import Client
 from finam.order.model import (
-    CreateOrderRequestModel,
     BoardType,
+    CreateOrderRequestModel,
+    DelOrderModel,
+    OrdersRequestModel,
     OrderType,
     PropertyType,
-    OrdersRequestModel,
-    DelOrderModel,
 )
 
 token = os.getenv("TOKEN")
@@ -46,7 +46,7 @@ async def del_order(transaction_id: str):
     return await client.orders.del_order(params)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
 
     res = asyncio.run(create_order())

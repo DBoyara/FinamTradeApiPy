@@ -1,6 +1,6 @@
 from abc import ABC
 from enum import Enum
-from typing import Tuple, Any
+from typing import Any, Tuple
 
 import aiohttp
 

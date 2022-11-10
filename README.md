@@ -16,7 +16,7 @@
 Install with pip
 
 ```bash
-  pip install my-project
+  pip install finam-trade-api
 ```
     
 ## Usage/Examples

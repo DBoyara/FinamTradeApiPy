@@ -7,13 +7,13 @@ from finam.order.model import (
     CreateOrderResponseModel,
     DelOrderModel,
     DelOrderResponseModel,
-    DelStopOrderRequestModel
+    DelStopOrderRequestModel,
 )
 from finam.order.model import DelStopOrderResponseModel as DelStopOrderResponse
 from finam.order.model import (
     OrdersRequestModel,
     OrdersResponseModel,
-    StopOrdersResponseModel
+    StopOrdersResponseModel,
 )
 
 

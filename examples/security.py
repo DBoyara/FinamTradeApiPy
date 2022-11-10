@@ -15,7 +15,7 @@ async def get_data_by_code(code: str):
     return await client.securities.get_data(code)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
 
     print(asyncio.run(get_all_data()))

@@ -13,7 +13,7 @@ async def main():
     return await client.portfolio.get_portfolio(params)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
 
     print(asyncio.run(main()))

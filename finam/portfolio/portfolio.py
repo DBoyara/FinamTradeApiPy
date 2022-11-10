@@ -11,14 +11,14 @@ class PortfolioClient(BaseClient):
         self._url = "/api/v1/portfolio"
 
     async def get_portfolio(self, params: PortfolioRequestModel) -> Union[PortfolioResponseModel, ErrorBodyModel]:
-        params = {
+        p = {
             "clientId": params.clientId,
             "content.IncludeCurrencies": params.includeCurrencies,
             "content.IncludeMoney": params.includeMoney,
             "content.IncludePositions": params.includePositions,
             "content.IncludeMaxBuySell": params.includeMaxBuySell,
         }
-        response, ok = await self._exec_request(self.RequestMethod.GET, self._url, params=params)
+        response, ok = await self._exec_request(self.RequestMethod.GET, self._url, params=p)
         if not ok:
             return ErrorBodyModel(**response)
         return PortfolioResponseModel(**response)

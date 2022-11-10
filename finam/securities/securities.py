@@ -1,8 +1,8 @@
-from typing import Union, Optional
+from typing import Optional, Union
 
 from finam.base_client.base import BaseClient
 from finam.models import ErrorBodyModel
-from finam.securities.model import SecurityResponseModel, Security
+from finam.securities.model import Security, SecurityResponseModel
 
 
 class SecurityClient(BaseClient):

@@ -2,12 +2,12 @@ import os
 
 from finam.client import Client
 from finam.order.model import (
-    CreateOrderRequestModel,
     BoardType,
-    OrderType,
-    PropertyType,
-    OrdersRequestModel,
+    CreateOrderRequestModel,
     DelOrderModel,
+    OrdersRequestModel,
+    OrderType,
+    PropertyType
 )
 
 token = os.getenv("TOKEN")

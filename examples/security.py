@@ -2,7 +2,7 @@ import os
 
 from finam.client import Client
 
-token = os.getenv("TOKEN")
+token = os.getenv("TOKEN", "")
 client_id = os.getenv("CLIENT_ID")
 client = Client(token)
 

@@ -10,7 +10,7 @@ from finam.order.model import (
     PropertyType,
 )
 
-token = os.getenv("TOKEN")
+token = os.getenv("TOKEN", "")
 client_id = os.getenv("CLIENT_ID")
 client = Client(token)
 

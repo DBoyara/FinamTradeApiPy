@@ -1,6 +1,7 @@
 from typing import Union
 
 from finam.base_client.base import BaseClient
+from finam.exceptions import FinamTradeApiError
 from finam.models import ErrorBodyModel
 from finam.portfolio.model import PortfolioRequestModel, PortfolioResponseModel
 
@@ -20,5 +21,6 @@ class PortfolioClient(BaseClient):
         }
         response, ok = await self._exec_request(self.RequestMethod.GET, self._url, params=p)
         if not ok:
-            return ErrorBodyModel(**response)
+            err = ErrorBodyModel(**response)
+            raise FinamTradeApiError(f"{err.error.code} | {err.error.data} | {err.error.message}")
         return PortfolioResponseModel(**response)

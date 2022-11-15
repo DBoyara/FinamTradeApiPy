@@ -42,7 +42,7 @@ class Position(BaseModel):
 
 class Currency(BaseModel):
     name: str
-    base64: float
+    balance: float
     crossRate: int
     equity: float
     unrealizedProfit: int

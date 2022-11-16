@@ -49,27 +49,33 @@ class Condition(BaseModel):
     time: Optional[str] = None
 
 
-class ValidateBefore(BaseModel):
+class ValidBefore(BaseModel):
     type: ValidBeforeType
     time: Optional[str] = None
+
+
+class OrderStatus(str, Enum):
+    Active = "Active"
+    Cancelled = "Cancelled"
+    Matched = "Matched"
 
 
 class OrderResponse(BaseModel):
     orderNo: int
     transactionId: int
-    securityCode: str
-    clientId: str
-    status: str
+    securityCode: Optional[str] = None
+    clientId: Optional[str] = None
+    status: Optional[OrderStatus] = None
     buySell: OrderType
     createdAt: Optional[str] = None
     acceptedAt: Optional[str] = None
-    price: Optional[float]  # цена заявки
+    price: float = 0
     quantity: int
     balance: int
     message: Optional[str] = None
     currency: Optional[str] = None
     condition: Optional[Condition] = None
-    validateBefore: Optional[ValidateBefore] = None
+    validBefore: Optional[ValidBefore] = None
 
 
 class OrdersResponseData(BaseModel):
@@ -112,10 +118,10 @@ class CreateOrderRequestModel(BaseModel):
     buySell: OrderType
     quantity: int
     useCredit: bool = False
-    price: Optional[float]
+    price: Optional[float]  # цена заявки
     property: PropertyType
     condition: Optional[Condition] = None
-    validateBefore: Optional[ValidateBefore] = None
+    validBefore: Optional[ValidBefore] = None
 
 
 class DelOrderModel(BaseModel):

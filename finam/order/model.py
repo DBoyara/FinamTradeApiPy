@@ -34,6 +34,8 @@ class ValidBeforeType(str, Enum):
 
 class BoardType(str, Enum):
     Futures = "FUT"
+    ZLG = "ZLG"
+    TQBR = "TQBR"
 
 
 class OrdersRequestModel(BaseModel):

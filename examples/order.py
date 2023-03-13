@@ -16,7 +16,7 @@ from finam.order.model import (
 )
 
 token = os.getenv("TOKEN", "")
-client_id = os.getenv("CLIENT_ID")
+client_id = os.getenv("CLIENT_ID", "")
 client = Client(token)
 
 
@@ -25,9 +25,9 @@ async def create_order():
         clientId=client_id,
         securityBoard=BoardType.Futures,
         securityCode="SiH3",
-        buySell=OrderType.Buy,
+        buySell=OrderType.Sell,
         quantity=1,
-        price=74950,
+        price=74920,
         property=PropertyType.PutInQueue,
         condition=None,
         validateBefore=None,
@@ -57,10 +57,10 @@ async def create_stop_order(transaction_id: int):
         clientId=client_id,
         securityBoard=BoardType.Futures,
         securityCode="SiH3",
-        buySell=OrderType.Sell,
+        buySell=OrderType.Buy,
         linkOrder=transaction_id,
         stopLoss=StopLossModel(
-            activationPrice=74850,
+            activationPrice=74940,
             marketPrice=True,
             quantity=StopQuantity(
                 value=1,
@@ -68,7 +68,7 @@ async def create_stop_order(transaction_id: int):
             )
         ),
         takeProfit=TakeProfitModel(
-            activationPrice=75100,
+            activationPrice=74850,
             marketPrice=True,
             quantity=StopQuantity(
                 value=1,
@@ -84,6 +84,8 @@ if __name__ == "__main__":
 
     res = asyncio.run(create_order())
     print(res)
+
+    print(asyncio.run(create_stop_order(1111111111111111111)))
 
     print(asyncio.run(get_orders()))
 

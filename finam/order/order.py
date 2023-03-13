@@ -24,7 +24,7 @@ class OrderClient(BaseClient):
     def __init__(self, token: str):
         super().__init__(token)
         self._order_url = "/api/v1/orders"
-        self._stop_order_url = "/api/v1/stop-orders"
+        self._stop_order_url = "/api/v1/stops"
 
     async def get_orders(self, params: OrdersRequestModel) -> Union[OrdersResponseModel, ErrorBodyModel]:
         response, ok = await self._exec_request(

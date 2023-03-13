@@ -38,6 +38,16 @@ class BoardType(str, Enum):
     TQBR = "TQBR"
 
 
+class StopQuantityUnits(str, Enum):
+    Percent = "Percent"
+    Lots = "Lots"
+
+
+class StopPriceUnits(str, Enum):
+    Percent = "Percent"
+    Pips = "Pips"
+
+
 class OrdersRequestModel(BaseModel):
     clientId: str
     includeMatched: Optional[str] = None
@@ -115,7 +125,7 @@ class CreateOrderResponseModel(BaseModel):
 
 class CreateOrderRequestModel(BaseModel):
     clientId: str
-    board: BoardType
+    securityBoard: BoardType
     securityCode: str
     buySell: OrderType
     quantity: int
@@ -124,6 +134,56 @@ class CreateOrderRequestModel(BaseModel):
     property: PropertyType
     condition: Optional[Condition] = None
     validBefore: Optional[ValidBefore] = None
+
+
+class StopQuantity(BaseModel):
+    value: float  # Значение объема.
+    units: StopQuantityUnits  # Единицы объема стоп-заявки.
+
+
+class StopLossModel(BaseModel):
+    activationPrice: float
+    price: Optional[float] = None
+    marketPrice: bool
+    quantity: StopQuantity
+
+
+class StopPrice(BaseModel):
+    value: float  # Значение объема.
+    units: StopPriceUnits  # Единицы объема стоп-заявки.
+
+
+class TakeProfitModel(BaseModel):
+    activationPrice: float
+    correctionPrice: Optional[StopPrice] = None
+    spreadPrice: Optional[StopPrice] = None
+    marketPrice: bool
+    quantity: StopQuantity
+    time: Optional[int] = None  # Защитное время, сек.
+    useCredit: bool = False
+
+
+class CreateStopOrderRequestModel(BaseModel):
+    clientId: str
+    securityBoard: BoardType
+    securityCode: str
+    buySell: OrderType
+    stopLoss: StopLossModel
+    takeProfit: TakeProfitModel
+    expirationDate: Optional[str] = None
+    linkOrder: Optional[int] = None
+    validBefore: Optional[ValidBefore] = None
+
+
+class CreateStopOrderData(BaseModel):
+    clientId: str
+    stopId: int
+    securityCode: Optional[str] = None
+    securityBoard: Optional[str] = None
+
+
+class CreateStopOrderResponseModel(BaseModel):
+    data: CreateStopOrderData
 
 
 class DelOrderModel(BaseModel):

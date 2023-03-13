@@ -4,10 +4,15 @@ from finam.client import Client
 from finam.order.model import (
     BoardType,
     CreateOrderRequestModel,
+    CreateStopOrderRequestModel,
     DelOrderModel,
     OrdersRequestModel,
     OrderType,
     PropertyType,
+    StopLossModel,
+    StopQuantity,
+    StopQuantityUnits,
+    TakeProfitModel
 )
 
 token = os.getenv("TOKEN", "")
@@ -18,11 +23,11 @@ client = Client(token)
 async def create_order():
     payload = CreateOrderRequestModel(
         clientId=client_id,
-        board=BoardType.Futures,
-        securityCode="SiZ2",
+        securityBoard=BoardType.Futures,
+        securityCode="SiH3",
         buySell=OrderType.Buy,
         quantity=1,
-        price=60000,
+        price=74950,
         property=PropertyType.PutInQueue,
         condition=None,
         validateBefore=None,
@@ -32,8 +37,9 @@ async def create_order():
 
 async def get_orders():
     params = OrdersRequestModel(
-        client_id=client_id,
-        includeActive="true"
+        clientId=client_id,
+        includeActive="true",
+        includeMatched="true",
     )
     return await client.orders.get_orders(params)
 
@@ -44,6 +50,33 @@ async def del_order(transaction_id: str):
         transactionId=transaction_id
     )
     return await client.orders.del_order(params)
+
+
+async def create_stop_order(transaction_id: int):
+    payload = CreateStopOrderRequestModel(
+        clientId=client_id,
+        securityBoard=BoardType.Futures,
+        securityCode="SiH3",
+        buySell=OrderType.Sell,
+        linkOrder=transaction_id,
+        stopLoss=StopLossModel(
+            activationPrice=74850,
+            marketPrice=True,
+            quantity=StopQuantity(
+                value=1,
+                units=StopQuantityUnits.Lots,
+            )
+        ),
+        takeProfit=TakeProfitModel(
+            activationPrice=75100,
+            marketPrice=True,
+            quantity=StopQuantity(
+                value=1,
+                units=StopQuantityUnits.Lots,
+            )
+        ),
+    )
+    return await client.orders.create_stop_order(payload)
 
 
 if __name__ == "__main__":

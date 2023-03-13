@@ -6,6 +6,8 @@ from finam.models import ErrorBodyModel
 from finam.order.model import (
     CreateOrderRequestModel,
     CreateOrderResponseModel,
+    CreateStopOrderRequestModel,
+    CreateStopOrderResponseModel,
     DelOrderModel,
     DelOrderResponseModel,
     DelStopOrderRequestModel
@@ -67,6 +69,20 @@ class OrderClient(BaseClient):
             err = ErrorBodyModel(**response)
             raise FinamTradeApiError(f"{err.error.code} | {err.error.data} | {err.error.message}")
         return StopOrdersResponseModel(**response)
+
+    async def create_stop_order(
+            self,
+            payload: CreateStopOrderRequestModel
+    ) -> Union[CreateStopOrderResponseModel, ErrorBodyModel]:
+        response, ok = await self._exec_request(
+            self.RequestMethod.POST,
+            self._stop_order_url,
+            payload.dict(exclude_defaults=True)
+        )
+        if not ok:
+            err = ErrorBodyModel(**response)
+            raise FinamTradeApiError(f"{err.error.code} | {err.error.data} | {err.error.message}")
+        return CreateStopOrderResponseModel(**response)
 
     async def del_stop_order(self, params: DelStopOrderRequestModel) -> Union[DelStopOrderResponse, ErrorBodyModel]:
         response, ok = await self._exec_request(

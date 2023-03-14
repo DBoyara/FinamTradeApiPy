@@ -82,27 +82,32 @@ import os
 
 from finam.client import Client
 from finam.order.model import (
-    CreateOrderRequestModel,
     BoardType,
+    CreateOrderRequestModel,
+    CreateStopOrderRequestModel,
+    DelOrderModel,
+    OrdersRequestModel,
     OrderType,
     PropertyType,
-    OrdersRequestModel,
-    DelOrderModel,
+    StopLossModel,
+    StopQuantity,
+    StopQuantityUnits,
+    TakeProfitModel
 )
 
-token = os.getenv("TOKEN")
-client_id = os.getenv("CLIENT_ID")
+token = os.getenv("TOKEN", "")
+client_id = os.getenv("CLIENT_ID", "")
 client = Client(token)
 
 
 async def create_order():
     payload = CreateOrderRequestModel(
         clientId=client_id,
-        board=BoardType.Futures,
-        securityCode="SiZ2",
-        buySell=OrderType.Buy,
+        securityBoard=BoardType.Futures,
+        securityCode="SiH3",
+        buySell=OrderType.Sell,
         quantity=1,
-        price=60000,
+        price=74920,
         property=PropertyType.PutInQueue,
         condition=None,
         validateBefore=None,
@@ -112,8 +117,9 @@ async def create_order():
 
 async def get_orders():
     params = OrdersRequestModel(
-        client_id=client_id,
-        includeActive="true"
+        clientId=client_id,
+        includeActive="true",
+        includeMatched="true",
     )
     return await client.orders.get_orders(params)
 
@@ -126,11 +132,40 @@ async def del_order(transaction_id: str):
     return await client.orders.del_order(params)
 
 
-if __name__ == '__main__':
+async def create_stop_order(transaction_id: int):
+    payload = CreateStopOrderRequestModel(
+        clientId=client_id,
+        securityBoard=BoardType.Futures,
+        securityCode="SiH3",
+        buySell=OrderType.Buy,
+        linkOrder=transaction_id,
+        stopLoss=StopLossModel(
+            activationPrice=74940,
+            marketPrice=True,
+            quantity=StopQuantity(
+                value=1,
+                units=StopQuantityUnits.Lots,
+            )
+        ),
+        takeProfit=TakeProfitModel(
+            activationPrice=74850,
+            marketPrice=True,
+            quantity=StopQuantity(
+                value=1,
+                units=StopQuantityUnits.Lots,
+            )
+        ),
+    )
+    return await client.orders.create_stop_order(payload)
+
+
+if __name__ == "__main__":
     import asyncio
 
     res = asyncio.run(create_order())
     print(res)
+
+    print(asyncio.run(create_stop_order(1111111111111111111)))
 
     print(asyncio.run(get_orders()))
 
@@ -142,10 +177,7 @@ if __name__ == '__main__':
 
 ## Features
 
-- Сейчас не работает api для stop-orders [issue](https://github.com/FinamWeb/trade-api-docs/issues/4#issue-1430054335)
-- Сейчас не работает потоковое получение через веб-сокеты [issue](https://github.com/FinamWeb/trade-api-docs/issues/6#issue-1437306099)
-- Реализовать токены
-
+- Поддержать proto-историю с events
 
 ## Authors
 

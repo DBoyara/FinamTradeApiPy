@@ -14,8 +14,8 @@ class BaseClient(ABC):
 
     def __init__(self, token: str):
         self._token = token
-        self._base_url = "https://trade-api.comon.ru"
-        self._base_ws_url = "wss://trade-api.comon.ru"
+        self._base_url = "https://trade-api.finam.ru"
+        self._base_ws_url = "wss://trade-api.finam.ru"
 
     @property
     def _auth_headers(self):

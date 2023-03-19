@@ -1,7 +1,7 @@
 
 # FinamTradeApiPy
 
-Асинхронный клиент для API Finam: https://trade-api.comon.ru и их сервиса https://comon.ru
+Асинхронный клиент для API [Finam](https://finamweb.github.io/trade-api-docs).
 
 Используется [aiohttp](https://github.com/aio-libs/aiohttp) для создания клиента и [pydantic](https://github.com/pydantic/pydantic) для удобной работы с моделями данных.
 

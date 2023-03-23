@@ -1,7 +1,7 @@
-from finam.access.model import TokenResponseModel
-from finam.base_client.base import BaseClient
-from finam.exceptions import FinamTradeApiError
-from finam.models import ErrorBodyModel
+from finam_trade_api.access.model import TokenResponseModel
+from finam_trade_api.base_client.base import BaseClient
+from finam_trade_api.exceptions import FinamTradeApiError
+from finam_trade_api.models import ErrorBodyModel
 
 
 class TokenClient(BaseClient):

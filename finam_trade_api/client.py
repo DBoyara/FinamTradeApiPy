@@ -1,8 +1,7 @@
-from finam.access.access_token import TokenClient
-from finam.events.event import EventClient
-from finam.order.order import OrderClient
-from finam.portfolio.portfolio import PortfolioClient
-from finam.securities.securities import SecurityClient
+from finam_trade_api.access import TokenClient
+from finam_trade_api.order import OrderClient
+from finam_trade_api.portfolio import PortfolioClient
+from finam_trade_api.securities import SecurityClient
 
 
 class Client:
@@ -10,5 +9,4 @@ class Client:
         self.portfolio = PortfolioClient(token)
         self.securities = SecurityClient(token)
         self.orders = OrderClient(token)
-        self.event = EventClient(token)
         self.access_tokens = TokenClient(token)

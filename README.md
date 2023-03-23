@@ -1,14 +1,14 @@
 
 # FinamTradeApiPy
 
-Асинхронный клиент для API [Finam](https://finamweb.github.io/trade-api-docs).
+Асинхронный REST-клиент для API [Finam](https://finamweb.github.io/trade-api-docs).
 
 Используется [aiohttp](https://github.com/aio-libs/aiohttp) для создания клиента и [pydantic](https://github.com/pydantic/pydantic) для удобной работы с моделями данных.
 
 
 ## Documentation
 
-[Документация Trade-Api](https://trade-api.comon.ru/swagger/index.html)
+[Документация Trade-Api](https://trade-api.finam.ru/swagger/index.html)
 
 
 ## Installation

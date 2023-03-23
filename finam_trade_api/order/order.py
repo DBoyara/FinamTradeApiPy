@@ -1,9 +1,9 @@
 from typing import Union
 
-from finam.base_client.base import BaseClient
-from finam.exceptions import FinamTradeApiError
-from finam.models import ErrorBodyModel
-from finam.order.model import (
+from finam_trade_api.base_client import BaseClient
+from finam_trade_api.exceptions import FinamTradeApiError
+from finam_trade_api.models import ErrorBodyModel
+from finam_trade_api.order.model import (
     CreateOrderRequestModel,
     CreateOrderResponseModel,
     CreateStopOrderRequestModel,
@@ -12,8 +12,9 @@ from finam.order.model import (
     DelOrderResponseModel,
     DelStopOrderRequestModel
 )
-from finam.order.model import DelStopOrderResponseModel as DelStopOrderResponse
-from finam.order.model import (
+from finam_trade_api.order.model import \
+    DelStopOrderResponseModel as DelStopOrderResponse
+from finam_trade_api.order.model import (
     OrdersRequestModel,
     OrdersResponseModel,
     StopOrdersResponseModel

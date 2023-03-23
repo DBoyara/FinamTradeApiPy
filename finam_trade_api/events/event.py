@@ -1,4 +1,4 @@
-from finam.base_client.base import BaseClient
+from finam_trade_api.base_client import BaseClient
 
 
 class EventClient(BaseClient):

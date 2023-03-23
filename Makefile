@@ -1,6 +1,6 @@
 PROGRAM_NAME = finam-trade-api
 
-.PHONY: help clean dep test build build-docker
+.PHONY: help clean dep dep-test sort mypy flake8
 
 .DEFAULT_GOAL := help
 
@@ -15,10 +15,10 @@ dep-test:
 	pip install -r requirements-test.txt
 
 sort:
-	isort finam
+	isort finam_trade_api
 
 mypy:
-	mypy finam
+	mypy finam_trade_api
 
 flake8:
-	flake8 finam
+	flake8 finam_trade_api

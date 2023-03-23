@@ -1,9 +1,9 @@
 from typing import Optional, Union
 
-from finam.base_client.base import BaseClient
-from finam.exceptions import FinamTradeApiError
-from finam.models import ErrorBodyModel
-from finam.securities.model import Security, SecurityResponseModel
+from finam_trade_api.base_client import BaseClient
+from finam_trade_api.exceptions import FinamTradeApiError
+from finam_trade_api.models import ErrorBodyModel
+from finam_trade_api.securities.model import Security, SecurityResponseModel
 
 
 class SecurityClient(BaseClient):

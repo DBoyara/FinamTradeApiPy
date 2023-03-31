@@ -1,7 +1,7 @@
 import os
 
-from finam.client import Client
-from finam.order.model import (
+from finam_trade_api.client import Client
+from finam_trade_api.order.model import (
     BoardType,
     CreateOrderRequestModel,
     CreateStopOrderRequestModel,

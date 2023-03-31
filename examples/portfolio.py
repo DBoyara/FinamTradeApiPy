@@ -1,7 +1,7 @@
 import os
 
-from finam.client import Client
-from finam.portfolio.model import PortfolioRequestModel
+from finam_trade_api.client import Client
+from finam_trade_api.portfolio.model import PortfolioRequestModel
 
 token = os.getenv("TOKEN")
 client_id = os.getenv("CLIENT_ID")

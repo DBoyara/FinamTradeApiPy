@@ -26,7 +26,7 @@ Install with pip
 ```python
 import os
 
-from finam.client import Client
+from finam_trade_api.client import Client
 
 token = os.getenv("TOKEN")
 client_id = os.getenv("CLIENT_ID")
@@ -55,8 +55,8 @@ if __name__ == '__main__':
 ```python
 import os
 
-from finam.client import Client
-from finam.portfolio.model import PortfolioRequestModel
+from finam_trade_api.client import Client
+from finam_trade_api.portfolio.model import PortfolioRequestModel
 
 
 token = os.getenv("TOKEN")
@@ -80,8 +80,8 @@ if __name__ == '__main__':
 ```python
 import os
 
-from finam.client import Client
-from finam.order.model import (
+from finam_trade_api.client import Client
+from finam_trade_api.order.model import (
     BoardType,
     CreateOrderRequestModel,
     CreateStopOrderRequestModel,

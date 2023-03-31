@@ -1,6 +1,6 @@
 import os
 
-from finam.client import Client
+from finam_trade_api.client import Client
 
 token = os.getenv("TOKEN", "")
 client = Client(token)

@@ -44,9 +44,9 @@ async def get_orders():
     return await client.orders.get_orders(params)
 
 
-async def del_order(transaction_id: str):
+async def del_order(transaction_id: int):
     params = DelOrderModel(
-        client_id=client_id,
+        clientId=client_id,
         transactionId=transaction_id
     )
     return await client.orders.del_order(params)

@@ -42,7 +42,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.POST,
             self._order_url,
-            payload.dict(exclude_defaults=True)
+            payload.dict(exclude_none=True)
         )
         if not ok:
             err = ErrorBodyModel(**response)
@@ -78,7 +78,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.POST,
             self._stop_order_url,
-            payload.dict(exclude_defaults=True)
+            payload.dict(exclude_none=True)
         )
         if not ok:
             err = ErrorBodyModel(**response)

@@ -15,7 +15,6 @@ class BaseClient(ABC):
     def __init__(self, token: str):
         self._token = token
         self._base_url = "https://trade-api.finam.ru"
-        self._base_ws_url = "wss://trade-api.finam.ru"
 
     @property
     def _auth_headers(self):
@@ -31,15 +30,3 @@ class BaseClient(ABC):
                         response.raise_for_status()
                     return await response.json(), False
                 return await response.json(), True
-
-    async def _exec_ws_request(self, method: str, url: str, params=None):
-        uri = f"{self._base_ws_url}{url}"
-
-        async with aiohttp.ClientSession(headers=self._auth_headers) as session:
-            async with session.ws_connect(url=uri, method=method, params=params) as ws:
-                try:
-                    await ws.ping(b"Ping")
-                except Exception as e:
-                    print(e)
-                finally:
-                    await ws.close()

@@ -1,6 +1,8 @@
 
 # FinamTradeApiPy
 
+[![PyPI version](https://img.shields.io/pypi/v/finam-trade-api.svg)](https://pypi.python.org/pypi/finam-trade-api/)
+
 Асинхронный REST-клиент для API [Finam](https://finamweb.github.io/trade-api-docs).
 
 Используется [aiohttp](https://github.com/aio-libs/aiohttp) для создания клиента и [pydantic](https://github.com/pydantic/pydantic) для удобной работы с моделями данных.
@@ -67,60 +69,6 @@ if __name__ == "__main__":
     print(asyncio.run(get_day_candles()))
 
     print(asyncio.run(get_in_day_candles()))
-```
-
-### Получение информации об инструменте
-
-```python
-import os
-
-from finam_trade_api.client import Client
-
-token = os.getenv("TOKEN")
-client_id = os.getenv("CLIENT_ID")
-client = Client(token)
-
-
-async def get_all_data():
-    return await client.securities.get_data()
-
-
-async def get_data_by_code(code: str):
-    return await client.securities.get_data(code)
-
-
-if __name__ == '__main__':
-    import asyncio
-
-    print(asyncio.run(get_all_data()))
-
-    code_ = "SiZ2"
-    print(asyncio.run(get_data_by_code(code_)))
-```
-
-### Получение информации об портфеле
-
-```python
-import os
-
-from finam_trade_api.client import Client
-from finam_trade_api.portfolio.model import PortfolioRequestModel
-
-
-token = os.getenv("TOKEN")
-client_id = os.getenv("CLIENT_ID")
-
-
-async def main():
-    client = Client(token)
-    params = PortfolioRequestModel(clientId=client_id)
-    return await client.portfolio.get_portfolio(params)
-
-
-if __name__ == '__main__':
-    import asyncio
-
-    print(asyncio.run(main()))
 ```
 
 ### Работа с заявками
@@ -222,10 +170,6 @@ if __name__ == "__main__":
     print(asyncio.run(get_orders()))
 ```
 
-
-## Features
-
-- Поддержать proto-историю с events
 
 ## Authors
 

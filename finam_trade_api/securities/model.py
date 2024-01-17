@@ -11,7 +11,6 @@ class Security(BaseModel):
     lotSize: float
     minStep: float
     currency: str
-    instrumentCode: str
     shortName: str
     properties: float
     timeZoneName: str

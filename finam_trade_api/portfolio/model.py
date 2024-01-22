@@ -25,27 +25,27 @@ class Position(BaseModel):
     securityCode: str
     market: str
     balance: int
-    currentPrice: int
-    equity: int
-    averagePrice: int
+    currentPrice: float
+    equity: float
+    averagePrice: float
     currency: str
-    accumulatedProfit: int
-    todayProfit: int
-    unrealizedProfit: int
-    profit: int
+    accumulatedProfit: float
+    todayProfit: float
+    unrealizedProfit: float
+    profit: float
     maxBuy: int
     maxSell: int
     priceCurrency: str
     averagePriceCurrency: str
-    averageRate: int
+    averageRate: float
 
 
 class Currency(BaseModel):
     name: str
     balance: float
-    crossRate: int
+    crossRate: float
     equity: float
-    unrealizedProfit: int
+    unrealizedProfit: float
 
 
 class Money(BaseModel):

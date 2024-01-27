@@ -72,6 +72,16 @@ class OrderStatus(str, Enum):
     Matched = "Matched"
 
 
+class OrderMarket(str, Enum):
+    Stock = "Stock"
+    Forts = "Forts"
+    Spbex = "Spbex"
+    Mma = "Mma"
+    Ets = "Ets"
+    Bonds = "Bonds"
+    Options = "Options"
+
+
 class OrderResponse(BaseModel):
     orderNo: int
     transactionId: int
@@ -88,6 +98,8 @@ class OrderResponse(BaseModel):
     currency: Optional[str] = None
     condition: Optional[Condition] = None
     validBefore: Optional[ValidBefore] = None
+    securityBoard: Optional[str] = None
+    market: Optional[OrderMarket] = None
 
 
 class OrdersResponseData(BaseModel):

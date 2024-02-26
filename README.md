@@ -10,6 +10,9 @@
 Используется [aiohttp](https://github.com/aio-libs/aiohttp) для создания клиента и [pydantic](https://github.com/pydantic/pydantic) для удобной работы с моделями данных.
 
 
+## Requirements
+Python >= 3.8 НО!!! Планирую обновить до версии 3.11 отдельной веткой и текущую удалить осенью 2024 года, так как истечет поддержка 3.8
+
 ## Documentation
 
 [Документация Trade-Api](https://trade-api.finam.ru/swagger/index.html)

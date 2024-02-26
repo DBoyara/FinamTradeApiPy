@@ -9,7 +9,7 @@ class TokenClient(BaseClient):
         super().__init__(token)
         self._url = "/api/v1/access-tokens"
 
-    async def check_token(self):
+    async def check_token(self) -> TokenResponseModel:
         response, ok = await self._exec_request(
             self.RequestMethod.GET,
             f"{self._url}/check",

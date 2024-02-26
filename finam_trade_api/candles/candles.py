@@ -7,7 +7,7 @@ from finam_trade_api.candles.model import (
     DayCandlesResponse,
     IntraDayCandle,
     IntraDayCandlesRequestModel,
-    IntraDayCandlesResponse
+    IntraDayCandlesResponse,
 )
 from finam_trade_api.exceptions import FinamTradeApiError
 from finam_trade_api.models import ErrorBodyModel

@@ -6,5 +6,5 @@ from finam_trade_api.candles.model import (
     Decimal,
     IntraDayCandle,
     IntraDayCandlesRequestModel,
-    IntraDayInterval
+    IntraDayInterval,
 )

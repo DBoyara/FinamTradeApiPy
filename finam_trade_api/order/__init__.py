@@ -30,6 +30,6 @@ from finam_trade_api.order.model import (
     StopQuantityUnits,
     TakeProfitModel,
     ValidBefore,
-    ValidBeforeType
+    ValidBeforeType,
 )
 from finam_trade_api.order.order import OrderClient

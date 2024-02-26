@@ -1,10 +1,7 @@
 from finam_trade_api.base_client import BaseClient
 from finam_trade_api.exceptions import FinamTradeApiError
 from finam_trade_api.models import ErrorBodyModel
-from finam_trade_api.portfolio.model import (
-    PortfolioRequestModel,
-    PortfolioResponseModel
-)
+from finam_trade_api.portfolio.model import PortfolioRequestModel, PortfolioResponseModel
 
 
 class PortfolioClient(BaseClient):

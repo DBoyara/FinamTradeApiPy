@@ -6,6 +6,6 @@ from finam_trade_api.portfolio.model import (
     PortfolioRequestOptionalModel,
     PortfolioResponseData,
     PortfolioResponseModel,
-    Position
+    Position,
 )
 from finam_trade_api.portfolio.portfolio import PortfolioClient

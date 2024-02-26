@@ -8,15 +8,12 @@ from finam_trade_api.order.model import (
     CreateStopOrderResponseModel,
     DelOrderModel,
     DelOrderResponseModel,
-    DelStopOrderRequestModel
-)
-from finam_trade_api.order.model import \
-    DelStopOrderResponseModel as DelStopOrderResponse
-from finam_trade_api.order.model import (
+    DelStopOrderRequestModel,
     OrdersRequestModel,
     OrdersResponseModel,
-    StopOrdersResponseModel
+    StopOrdersResponseModel,
 )
+from finam_trade_api.order.model import DelStopOrderResponseModel as DelStopOrderResponse
 
 
 class OrderClient(BaseClient):

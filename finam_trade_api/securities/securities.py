@@ -10,7 +10,7 @@ class SecurityClient(BaseClient):
     def __init__(self, token: str):
         super().__init__(token)
         self._url = "/api/v1/securities"
-        self._params = {}
+        self._params: dict = {}
 
     async def get_data(
             self,

@@ -3,6 +3,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
+from finam_trade_api.models import Market
+
 
 class OrderType(str, Enum):
     Sell = "Sell"
@@ -21,9 +23,9 @@ class ConditionType(str, Enum):
 
 
 class PropertyType(str, Enum):
-    PutInQueue = "PutInQueue"
-    CancelBalance = "CancelBalance"
-    ImmOrCancel = "ImmOrCancel"
+    PutInQueue = "PutInQueue"  # неисполненная часть заявки помещается в очередь заявок биржи;
+    CancelBalance = "CancelBalance"  # неисполненная часть заявки снимается с торгов;
+    ImmOrCancel = "ImmOrCancel"  # сделки совершаются в том случае, если заявка может быть удовлетворена полностью
 
 
 class ValidBeforeType(str, Enum):
@@ -67,31 +69,22 @@ class ValidBefore(BaseModel):
 
 
 class OrderStatus(str, Enum):
+    NONE = "None"
     Active = "Active"
     Cancelled = "Cancelled"
     Matched = "Matched"
 
 
-class OrderMarket(str, Enum):
-    Stock = "Stock"
-    Forts = "Forts"
-    Spbex = "Spbex"
-    Mma = "Mma"
-    Ets = "Ets"
-    Bonds = "Bonds"
-    Options = "Options"
-
-
-class OrderResponse(BaseModel):
+class Order(BaseModel):
     orderNo: int
     transactionId: int
     securityCode: Optional[str] = None
     clientId: Optional[str] = None
-    status: Optional[OrderStatus] = None
+    status: OrderStatus
     buySell: OrderType
     createdAt: Optional[str] = None
     acceptedAt: Optional[str] = None
-    price: float = 0
+    price: float = 0  # В последующих версиях API поле для рыночных заявок будет равно null, а не 0.
     quantity: int
     balance: int
     message: Optional[str] = None
@@ -99,12 +92,12 @@ class OrderResponse(BaseModel):
     condition: Optional[Condition] = None
     validBefore: Optional[ValidBefore] = None
     securityBoard: Optional[str] = None
-    market: Optional[OrderMarket] = None
+    market: Market
 
 
 class OrdersResponseData(BaseModel):
     clientId: str
-    orders: List[OrderResponse]
+    orders: List[Order]
 
 
 class OrdersResponseModel(BaseModel):
@@ -112,13 +105,31 @@ class OrdersResponseModel(BaseModel):
 
 
 class StopOrder(BaseModel):
-    stopOrderId: int
+    stopId: int
     securityCode: str
+    securityBoard: BoardType
+    market: Market
+    clientId: str
+    buySell: OrderType
+    expirationDate: Optional[str] = None
+    linkOrder: int
+    validBefore: Optional[ValidBefore] = None
+    status: OrderStatus
+    message: Optional[str] = None
+    orderNo: int
+    tradeNo: int
+    acceptedAt: Optional[str] = None
+    canceledAt: Optional[str] = None
+    currency: Optional[str] = None
+    takeProfitExtremum: float
+    takeProfitLevel: float
+    stopLoss: Optional["StopLossModel"] = None
+    takeProfit: Optional["TakeProfitModel"] = None
 
 
 class StopOrdersResponseData(BaseModel):
     clientId: str
-    stopOrders: List[StopOrder]
+    stops: List[StopOrder]
 
 
 class StopOrdersResponseModel(BaseModel):
@@ -142,7 +153,7 @@ class CreateOrderRequestModel(BaseModel):
     buySell: OrderType
     quantity: int
     useCredit: bool = False
-    price: Optional[float]  # цена заявки
+    price: float = 0  # В последующих версиях API поле для рыночных заявок будет равно null, а не 0.
     property: PropertyType
     condition: Optional[Condition] = None
     validBefore: Optional[ValidBefore] = None
@@ -155,9 +166,11 @@ class StopQuantity(BaseModel):
 
 class StopLossModel(BaseModel):
     activationPrice: float
-    price: Optional[float] = None
+    price: float = 0
     marketPrice: bool
     quantity: StopQuantity
+    time: int = 0  # Защитное время, сек.
+    useCredit: bool = False
 
 
 class StopPrice(BaseModel):
@@ -171,7 +184,7 @@ class TakeProfitModel(BaseModel):
     spreadPrice: Optional[StopPrice] = None
     marketPrice: bool
     quantity: StopQuantity
-    time: Optional[int] = None  # Защитное время, сек.
+    time: int = 0  # Защитное время, сек.
     useCredit: bool = False
 
 

@@ -13,7 +13,7 @@ from finam_trade_api.order.model import (
     DelStopOrderData,
     DelStopOrderRequestModel,
     DelStopOrderResponseModel,
-    OrderResponse,
+    Order,
     OrdersRequestModel,
     OrdersResponseData,
     OrdersResponseModel,

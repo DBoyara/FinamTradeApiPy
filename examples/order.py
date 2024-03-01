@@ -23,11 +23,11 @@ client = Client(token)
 async def create_order():
     payload = CreateOrderRequestModel(
         clientId=client_id,
-        securityBoard=BoardType.Futures,
-        securityCode="SiH3",
-        buySell=OrderType.Sell,
+        securityBoard=BoardType.TQBR,
+        securityCode="ALRS",
+        buySell=OrderType.Buy,
         quantity=1,
-        price=74920,
+        price=72.23,
         property=PropertyType.PutInQueue,
         condition=None,
         validateBefore=None,
@@ -55,12 +55,12 @@ async def del_order(transaction_id: int):
 async def create_stop_order(transaction_id: int):
     payload = CreateStopOrderRequestModel(
         clientId=client_id,
-        securityBoard=BoardType.Futures,
-        securityCode="SiH3",
-        buySell=OrderType.Buy,
+        securityBoard=BoardType.TQBR,
+        securityCode="ALRS",
+        buySell=OrderType.Sell,
         linkOrder=transaction_id,
         stopLoss=StopLossModel(
-            activationPrice=74940,
+            activationPrice=71.80,
             marketPrice=True,
             quantity=StopQuantity(
                 value=1,
@@ -68,7 +68,7 @@ async def create_stop_order(transaction_id: int):
             )
         ),
         takeProfit=TakeProfitModel(
-            activationPrice=74850,
+            activationPrice=72.30,
             marketPrice=True,
             quantity=StopQuantity(
                 value=1,
@@ -77,18 +77,3 @@ async def create_stop_order(transaction_id: int):
         ),
     )
     return await client.orders.create_stop_order(payload)
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    res = asyncio.run(create_order())
-    print(res)
-
-    print(asyncio.run(create_stop_order(1111111111111111111)))
-
-    print(asyncio.run(get_orders()))
-
-    print(asyncio.run(del_order(res.data.transactionId)))
-
-    print(asyncio.run(get_orders()))

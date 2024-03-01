@@ -2,6 +2,8 @@ from typing import List
 
 from pydantic import BaseModel
 
+from finam_trade_api.models import Market
+
 
 class PortfolioRequestOptionalModel(BaseModel):
     includeCurrencies: str = "true"
@@ -23,7 +25,7 @@ class PortfolioContent(BaseModel):
 
 class Position(BaseModel):
     securityCode: str
-    market: str
+    market: Market
     balance: int
     currentPrice: float
     equity: float

@@ -158,23 +158,8 @@ async def create_stop_order(transaction_id: int):
         ),
     )
     return await client.orders.create_stop_order(payload)
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    res = asyncio.run(create_order())
-    print(res)
-
-    print(asyncio.run(create_stop_order(1111111111111111111)))
-
-    print(asyncio.run(get_orders()))
-
-    print(asyncio.run(del_order(res.data.transactionId)))
-
-    print(asyncio.run(get_orders()))
 ```
-
+Больше примеров в examples/
 
 ## Authors
 

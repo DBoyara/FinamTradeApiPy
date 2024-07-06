@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "finam-trade-api"
-version = "2.3.0"
+version = "2.3.2"
 description = "Асинхронный REST-клиент для API Finam"
 authors = ["DBoyara <boyarshin.den@yandex.ru>"]
 license = "GNU GPL v.3.0"

@@ -26,7 +26,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.GET,
             self._order_url,
-            params=params.dict(exclude_none=True)
+            params=params.model_dump(exclude_none=True)
         )
         if not ok:
             err = ErrorBodyModel(**response)
@@ -37,7 +37,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.POST,
             self._order_url,
-            payload.dict(exclude_none=True)
+            payload.model_dump(exclude_none=True)
         )
         if not ok:
             err = ErrorBodyModel(**response)
@@ -48,7 +48,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.DELETE,
             self._order_url,
-            params=params.dict()
+            params=params.model_dump()
         )
         if not ok:
             err = ErrorBodyModel(**response)
@@ -59,7 +59,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.GET,
             self._stop_order_url,
-            params.dict(exclude_none=True)
+            params.model_dump(exclude_none=True)
         )
         if not ok:
             err = ErrorBodyModel(**response)
@@ -70,7 +70,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.POST,
             self._stop_order_url,
-            payload.dict(exclude_none=True)
+            payload.model_dump(exclude_none=True)
         )
         if not ok:
             err = ErrorBodyModel(**response)
@@ -81,7 +81,7 @@ class OrderClient(BaseClient):
         response, ok = await self._exec_request(
             self.RequestMethod.DELETE,
             self._stop_order_url,
-            params.dict()
+            params.model_dump()
         )
         if not ok:
             err = ErrorBodyModel(**response)

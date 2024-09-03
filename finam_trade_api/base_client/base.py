@@ -12,9 +12,9 @@ class BaseClient(ABC):
         GET = "get"
         DELETE = "delete"
 
-    def __init__(self, token: str):
+    def __init__(self, token: str, url: str = "https://trade-api.finam.ru"):
         self._token = token
-        self._base_url = "https://trade-api.finam.ru"
+        self._base_url = url
 
     @property
     def _auth_headers(self):

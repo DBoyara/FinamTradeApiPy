@@ -12,7 +12,7 @@ from finam_trade_api.order.model import (
     StopLossModel,
     StopQuantity,
     StopQuantityUnits,
-    TakeProfitModel
+    TakeProfitModel,
 )
 
 token = os.getenv("TOKEN", "")

@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -7,7 +6,7 @@ from pydantic import BaseModel
 class BaseErrorModel(BaseModel):
     code: str
     message: str
-    data: Optional[dict]
+    data: dict | None = None
 
 
 class ErrorBodyModel(BaseModel):

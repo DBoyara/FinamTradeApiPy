@@ -1,12 +1,12 @@
 import os
 
-from finam_trade_api.client import Client
 from finam_trade_api.candles.model import (
     DayCandlesRequestModel,
     DayInterval,
     IntraDayCandlesRequestModel,
-    IntraDayInterval
+    IntraDayInterval,
 )
+from finam_trade_api.client import Client
 
 token = os.getenv("TOKEN", "")
 

@@ -24,10 +24,10 @@ async def create_order():
     payload = CreateOrderRequestModel(
         clientId=client_id,
         securityBoard=BoardType.TQBR,
-        securityCode="ALRS",
+        securityCode="SBER",
         buySell=OrderType.Buy,
         quantity=1,
-        price=72.23,
+        price=None,  # рыночная заявка
         property=PropertyType.PutInQueue,
         condition=None,
         validateBefore=None,

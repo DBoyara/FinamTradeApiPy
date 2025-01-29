@@ -153,7 +153,7 @@ class CreateOrderRequestModel(BaseModel):
     buySell: OrderType
     quantity: int
     useCredit: bool = False
-    price: float = 0  # В последующих версиях API поле для рыночных заявок будет равно null, а не 0.
+    price: float | None = None
     property: PropertyType
     condition: Optional[Condition] = None
     validBefore: Optional[ValidBefore] = None

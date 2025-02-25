@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -19,9 +18,9 @@ class IntraDayInterval(str, Enum):
 class BaseCandlesRequestModel(BaseModel):
     securityBoard: str
     securityCode: str
-    intervalFrom: Optional[str]
-    intervalTo: Optional[str]
-    count: Optional[int]
+    intervalFrom: str | None = None
+    intervalTo: str | None
+    count: int | None
 
 
 class DayCandlesRequestModel(BaseCandlesRequestModel):
@@ -50,7 +49,7 @@ class DayCandle(BaseCandleModel):
 
 
 class CandlesResponse(BaseModel):
-    candles: List[DayCandle]
+    candles: list[DayCandle]
 
 
 class DayCandlesResponse(BaseModel):
@@ -62,7 +61,7 @@ class IntraDayCandle(BaseCandleModel):
 
 
 class InDayCandlesResponse(BaseModel):
-    candles: List[IntraDayCandle]
+    candles: list[IntraDayCandle]
 
 
 class IntraDayCandlesResponse(BaseModel):

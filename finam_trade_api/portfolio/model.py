@@ -1,5 +1,3 @@
-from typing import List
-
 from pydantic import BaseModel
 
 from finam_trade_api.models import Market
@@ -61,9 +59,9 @@ class PortfolioResponseData(BaseModel):
     content: PortfolioContent
     equity: float
     balance: float
-    positions: List[Position]
-    currencies: List[Currency]
-    money: List[Money]
+    positions: list[Position]
+    currencies: list[Currency]
+    money: list[Money]
 
 
 class PortfolioResponseModel(BaseModel):

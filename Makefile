@@ -1,6 +1,6 @@
 PROGRAM_NAME = finam-trade-api
 
-.PHONY: help clean dep dep-test sort mypy flake8
+.PHONY: help clean dep dep-test sort mypy
 
 .DEFAULT_GOAL := help
 
@@ -19,6 +19,3 @@ sort:
 
 mypy:
 	mypy finam_trade_api
-
-flake8:
-	flake8 finam_trade_api

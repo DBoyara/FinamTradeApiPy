@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -52,20 +51,20 @@ class StopPriceUnits(str, Enum):
 
 class OrdersRequestModel(BaseModel):
     clientId: str
-    includeMatched: Optional[str] = None
-    includeCanceled: Optional[str] = None
-    includeActive: Optional[str] = None
+    includeMatched: str | None = None
+    includeCanceled: str | None = None
+    includeActive: str | None = None
 
 
 class Condition(BaseModel):
     type: ConditionType
     price: float  # цена активации
-    time: Optional[str] = None
+    time: str | None = None
 
 
 class ValidBefore(BaseModel):
     type: ValidBeforeType
-    time: Optional[str] = None
+    time: str | None = None
 
 
 class OrderStatus(str, Enum):
@@ -75,29 +74,57 @@ class OrderStatus(str, Enum):
     Matched = "Matched"
 
 
+class StopQuantity(BaseModel):
+    value: float  # Значение объема.
+    units: StopQuantityUnits  # Единицы объема стоп-заявки.
+
+
+class StopLossModel(BaseModel):
+    activationPrice: float
+    price: float | None = None
+    marketPrice: bool
+    quantity: StopQuantity
+    time: int = 0  # Защитное время, сек.
+    useCredit: bool = False
+
+
+class StopPrice(BaseModel):
+    value: float  # Значение объема.
+    units: StopPriceUnits  # Единицы объема стоп-заявки.
+
+
+class TakeProfitModel(BaseModel):
+    activationPrice: float
+    correctionPrice: StopPrice | None = None
+    spreadPrice: StopPrice | None = None
+    marketPrice: bool
+    quantity: StopQuantity
+    time: int = 0  # Защитное время, сек.
+    useCredit: bool = False
+
 class Order(BaseModel):
     orderNo: int
     transactionId: int
-    securityCode: Optional[str] = None
-    clientId: Optional[str] = None
+    securityCode: str | None = None
+    clientId: str | None = None
     status: OrderStatus
     buySell: OrderType
-    createdAt: Optional[str] = None
-    acceptedAt: Optional[str] = None
-    price: float = 0  # В последующих версиях API поле для рыночных заявок будет равно null, а не 0.
+    createdAt: str | None = None
+    acceptedAt: str | None = None
+    price: float | None = None
     quantity: int
     balance: int
-    message: Optional[str] = None
-    currency: Optional[str] = None
-    condition: Optional[Condition] = None
-    validBefore: Optional[ValidBefore] = None
-    securityBoard: Optional[str] = None
+    message: str | None = None
+    currency: str | None = None
+    condition: Condition | None = None
+    validBefore: ValidBefore | None = None
+    securityBoard: str | None = None
     market: Market
 
 
 class OrdersResponseData(BaseModel):
     clientId: str
-    orders: List[Order]
+    orders: list[Order]
 
 
 class OrdersResponseModel(BaseModel):
@@ -111,25 +138,25 @@ class StopOrder(BaseModel):
     market: Market
     clientId: str
     buySell: OrderType
-    expirationDate: Optional[str] = None
+    expirationDate: str | None = None
     linkOrder: int
-    validBefore: Optional[ValidBefore] = None
+    validBefore: ValidBefore | None = None
     status: OrderStatus
-    message: Optional[str] = None
+    message: str | None = None
     orderNo: int
     tradeNo: int
-    acceptedAt: Optional[str] = None
-    canceledAt: Optional[str] = None
-    currency: Optional[str] = None
+    acceptedAt: str | None = None
+    canceledAt: str | None = None
+    currency: str | None = None
     takeProfitExtremum: float
     takeProfitLevel: float
-    stopLoss: Optional["StopLossModel"] = None
-    takeProfit: Optional["TakeProfitModel"] = None
+    stopLoss: StopLossModel | None = None
+    takeProfit: TakeProfitModel | None = None
 
 
 class StopOrdersResponseData(BaseModel):
     clientId: str
-    stops: List[StopOrder]
+    stops: list[StopOrder]
 
 
 class StopOrdersResponseModel(BaseModel):
@@ -155,37 +182,8 @@ class CreateOrderRequestModel(BaseModel):
     useCredit: bool = False
     price: float | None = None
     property: PropertyType
-    condition: Optional[Condition] = None
-    validBefore: Optional[ValidBefore] = None
-
-
-class StopQuantity(BaseModel):
-    value: float  # Значение объема.
-    units: StopQuantityUnits  # Единицы объема стоп-заявки.
-
-
-class StopLossModel(BaseModel):
-    activationPrice: float
-    price: float = 0
-    marketPrice: bool
-    quantity: StopQuantity
-    time: int = 0  # Защитное время, сек.
-    useCredit: bool = False
-
-
-class StopPrice(BaseModel):
-    value: float  # Значение объема.
-    units: StopPriceUnits  # Единицы объема стоп-заявки.
-
-
-class TakeProfitModel(BaseModel):
-    activationPrice: float
-    correctionPrice: Optional[StopPrice] = None
-    spreadPrice: Optional[StopPrice] = None
-    marketPrice: bool
-    quantity: StopQuantity
-    time: int = 0  # Защитное время, сек.
-    useCredit: bool = False
+    condition: Condition | None = None
+    validBefore: ValidBefore | None = None
 
 
 class CreateStopOrderRequestModel(BaseModel):
@@ -195,16 +193,16 @@ class CreateStopOrderRequestModel(BaseModel):
     buySell: OrderType
     stopLoss: StopLossModel
     takeProfit: TakeProfitModel
-    expirationDate: Optional[str] = None
-    linkOrder: Optional[int] = None
-    validBefore: Optional[ValidBefore] = None
+    expirationDate: str | None = None
+    linkOrder: int | None = None
+    validBefore: ValidBefore | None = None
 
 
 class CreateStopOrderData(BaseModel):
     clientId: str
     stopId: int
-    securityCode: Optional[str] = None
-    securityBoard: Optional[str] = None
+    securityCode: str | None = None
+    securityBoard: str | None = None
 
 
 class CreateStopOrderResponseModel(BaseModel):

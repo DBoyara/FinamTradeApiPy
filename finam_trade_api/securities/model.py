@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from pydantic import BaseModel
 
 from finam_trade_api.models import Market
@@ -12,19 +10,19 @@ class Security(BaseModel):
     decimals: int
     lotSize: int
     minStep: int
-    currency: Optional[str] = None
-    shortName: Optional[str] = None
+    currency: str | None = None
+    shortName: str | None = None
     properties: int
-    timeZoneName: Optional[str] = None
+    timeZoneName: str | None = None
     bpCost: float
     accruedInterest: float
     priceSign: str
-    ticker: Optional[str] = None
+    ticker: str | None = None
     lotDivider: int
 
 
 class SecurityData(BaseModel):
-    securities: List[Security]
+    securities: list[Security]
 
 
 class SecurityResponseModel(BaseModel):

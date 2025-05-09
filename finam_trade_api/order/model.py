@@ -37,6 +37,7 @@ class BoardType(str, Enum):
     Futures = "FUT"
     ZLG = "ZLG"
     TQBR = "TQBR"
+    TQTF = "TQTF"
 
 
 class StopQuantityUnits(str, Enum):

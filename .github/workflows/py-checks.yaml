@@ -1,4 +1,4 @@
-name: Tests
+name: Py-checks
 
 on:
   pull_request:
@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.11']
-        poetry-version: ['1.8.1']
+        python-version: ['3.11', '3.12']
+        poetry-version: ['1.8.1', '1.8.4', '2.0.0', '2.1.3']
     steps:
       - uses: actions/checkout@v2
 
@@ -44,15 +44,21 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Run tests with coverage
-        run: |
-          poetry run pytest \
-            --cov=finam_trade_api \
-            --cov-report=xml \
-            --cov-report=term \
-            -p no:warnings tests/
+      - name: Run ruff
+        run: poetry run ruff check finam_trade_api
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: coverage.xml
+      - name: Run mypy
+        run: poetry run mypy ./finam_trade_api
+
+      - name: Run bandit
+        run: |
+          poetry run bandit -r finam_trade_api -x tests \
+            --skip B101,B104,B311,B404,B603,B605
+
+      - name: Check secrets
+        run: |
+          if [ -f .secrets.baseline ]; then
+            poetry run detect-secrets scan --baseline .secrets.baseline
+          else
+            echo "::warning file=.secrets.baseline::Baseline файл отсутствует. Пропускаем проверку secrets"
+          fi

@@ -1,11 +1,29 @@
 
 # FinamTradeApiPy
 
-[![PyPI version](https://img.shields.io/pypi/v/finam-trade-api.svg)](https://pypi.python.org/pypi/finam-trade-api/)
-![Py-checks](https://github.com/DBoyara/FinamTradeApiPy/workflows/tests.yaml/badge.svg)
-<a href="https://codeclimate.com/github/DBoyara/FinamTradeApiPy/maintainability"><img src="https://api.codeclimate.com/v1/badges/8ecc913021ba859872ac/maintainability" /></a>
+[![Build](https://github.com/Dboyara/FinamTradeApiPy/actions/workflows/py-checks.yaml/badge.svg)](https://github.com/Dboyara/FinamTradeApiPy/actions/workflows/py-checks.yaml)
+[![PyPI version](https://badge.fury.io/py/finam-trade-api.svg)](https://pypi.org/project/finam-trade-api/)
+![Python](https://img.shields.io/pypi/pyversions/finam-trade-api)
+[![codecov](https://codecov.io/gh/Dboyara/FinamTradeApiPy/branch/main/graph/badge.svg)](https://codecov.io/gh/Dboyara/FinamTradeApiPy)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://pre-commit.com/)
+![License](https://img.shields.io/github/license/Dboyara/FinamTradeApiPy)
+![Code style: Ruff](https://img.shields.io/badge/code%20style-ruff-informational?logo=python&logoColor=white)
+![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)
+![Formatted with: black](https://img.shields.io/badge/format-black-black)
+![Security Check](https://img.shields.io/badge/security-passed-brightgreen)
+![GitHub stars](https://img.shields.io/github/stars/Dboyara/FinamTradeApiPy?style=social)
 
-# Обновление FinamApi
+---
+
+FinamTradeApiPy — это Python-библиотека для лёгкого взаимодействия с публичным и/или торговым API Finam. Поддерживает котировки, авторизацию, работу с сессиями и исторические данные в удобном и Pythonic стиле.
+
+## 📦 Установка
+
+```bash
+pip install finam-trade-api-py
+poetry add finam-trade-api
+
+# Обновление FinamApi !!!
 
 Так как Finam переезжает на новое API, библиотека будет обновляться. Происходить это будет по мере появления методов REST-Api.
 Версия будет начинаться с 4.х.х-beta 

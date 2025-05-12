@@ -6,12 +6,13 @@ from finam_trade_api.client import Client
 from finam_trade_api.order.order import OrderClient
 from finam_trade_api.portfolio.portfolio import PortfolioClient
 from finam_trade_api.securities.securities import SecurityClient
+from finam_trade_api.base_client.token_manager import TokenManager
 
 
 @pytest.fixture
 def client():
     token = "your_token_here"
-    return Client(token)
+    return Client(TokenManager(token))
 
 
 def test_client_initialization(client):

@@ -1,2 +1,4 @@
+from finam_trade_api.base_client.token_manager import TokenManager
 from finam_trade_api.client import Client
-from finam_trade_api.models import ErrorBodyModel
+from finam_trade_api.exceptions import FinamTradeApiError
+from finam_trade_api.models import ErrorModel

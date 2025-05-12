@@ -4,7 +4,6 @@
 [![Build](https://github.com/Dboyara/FinamTradeApiPy/actions/workflows/py-checks.yaml/badge.svg)](https://github.com/Dboyara/FinamTradeApiPy/actions/workflows/py-checks.yaml)
 [![PyPI version](https://badge.fury.io/py/finam-trade-api.svg)](https://pypi.org/project/finam-trade-api/)
 ![Python](https://img.shields.io/pypi/pyversions/finam-trade-api)
-[![codecov](https://codecov.io/gh/Dboyara/FinamTradeApiPy/branch/main/graph/badge.svg)](https://codecov.io/gh/Dboyara/FinamTradeApiPy)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://pre-commit.com/)
 ![License](https://img.shields.io/github/license/Dboyara/FinamTradeApiPy)
 ![Code style: Ruff](https://img.shields.io/badge/code%20style-ruff-informational?logo=python&logoColor=white)

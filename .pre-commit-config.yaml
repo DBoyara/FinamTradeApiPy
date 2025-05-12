@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: poetry run ruff check --no-fix ./finam_trade_api
+        pass_filenames: false
+        language: system
+
+      - id: mypy
+        name: mypy
+        entry: poetry run mypy ./finam_trade_api
+        pass_filenames: false
+        language: system
+
+      - id: bandit
+        name: bandit
+        entry: poetry run bandit -r finam_trade_api
+        pass_filenames: false
+        language: system
+        args: [ "--skip", "B101,B104,B311,B404,B603,B605" ]
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        name: detect-secrets
+        entry: detect-secrets-hook --baseline .secrets.baseline
+        language: python
+        types: [text]

@@ -2,7 +2,7 @@
 # FinamTradeApiPy
 
 [![PyPI version](https://img.shields.io/pypi/v/finam-trade-api.svg)](https://pypi.python.org/pypi/finam-trade-api/)
-[![Build Status](https://github.com/DBoyara/FinamTradeApiPy/workflows/CodeQL/badge.svg)](https://github.com/DBoyara/FinamTradeApiPy/actions)
+![Py-checks](https://github.com/DBoyara/FinamTradeApiPy/workflows/tests.yaml/badge.svg)
 <a href="https://codeclimate.com/github/DBoyara/FinamTradeApiPy/maintainability"><img src="https://api.codeclimate.com/v1/badges/8ecc913021ba859872ac/maintainability" /></a>
 
 # Обновление FinamApi

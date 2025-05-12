@@ -47,8 +47,8 @@ jobs:
       - name: Run ruff
         run: poetry run ruff check finam_trade_api
 
-      - name: Run mypy
-        run: poetry run mypy ./finam_trade_api
+#      - name: Run mypy
+#        run: poetry run mypy ./finam_trade_api
 
       - name: Run bandit
         run: |

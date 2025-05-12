@@ -20,6 +20,12 @@ repos:
         language: system
         args: [ "--skip", "B101,B104,B311,B404,B603,B605" ]
 
+      - id: pytest
+        name: pytest
+        entry: poetry run pytest ./tests
+        pass_filenames: false
+        language: system
+
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:

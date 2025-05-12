@@ -16,16 +16,10 @@
 
 FinamTradeApiPy — это Python-библиотека для лёгкого взаимодействия с публичным торговым API Finam.
 
-## 📦 Установка
-
-```bash
-pip install finam-trade-api-py
-poetry add finam-trade-api
-
 # Обновление FinamApi !!!
 
 Так как Finam переезжает на новое API, библиотека будет обновляться. Происходить это будет по мере появления методов REST-Api.
-Версия будет начинаться с 4.х.х-beta 
+Версия будет начинаться с 4.х.х-beta. Следить за развитием событий можно [в этой ветке](https://github.com/DBoyara/FinamTradeApiPy/tree/new-api)
 
 Асинхронный REST-клиент для API [Finam](https://finamweb.github.io/trade-api-docs).
 
@@ -42,13 +36,14 @@ Python >= 3.11
 
 ## Installation
 
-Install with pip
-
 ```bash
-  pip install finam-trade-api
+pip install finam-trade-api-py
+poetry add finam-trade-api
 ```
     
 ## Usage/Examples
+
+### Получение токена
 
 ```python
 import os
@@ -77,6 +72,50 @@ if __name__ == "__main__":
     # Запуск асинхронного main
     print(asyncio.run(main()))
 ```
+
+### Информация об аккаунте
+
+```python
+import os
+from pprint import pprint
+
+from finam_trade_api import Client
+from finam_trade_api import TokenManager
+from finam_trade_api.account import GetTransactionsRequest, GetTradesRequest
+
+token = os.getenv("TOKEN")
+account_id = os.getenv("ACCOUNT_ID")
+
+
+async def main():
+    client = Client(TokenManager(token))
+    await client.access_tokens.set_jwt_token()
+
+    # Получение информации об аккаунте
+    pprint(await client.account.get_account_info(account_id))
+
+    # Получение списка транзакций
+    pprint(await client.account.get_transactions(GetTransactionsRequest(
+        account_id=account_id,
+        start_time="2024-01-01T00:00:00Z",
+        end_time="2025-03-15T00:00:00Z",
+        limit=10,
+    )))
+
+    # Получение списка сделок
+    pprint(await client.account.get_trades(GetTradesRequest(
+        account_id=account_id,
+        start_time="2024-01-01T00:00:00Z",
+        end_time="2025-03-15T00:00:00Z",
+    )))
+
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
+```
+
+### Больше примеров в папке [examples](https://github.com/DBoyara/FinamTradeApiPy/tree/master/examples)
 
 ## Authors
 

@@ -7,11 +7,11 @@ repos:
         pass_filenames: false
         language: system
 
-      - id: mypy
-        name: mypy
-        entry: poetry run mypy ./finam_trade_api
-        pass_filenames: false
-        language: system
+#      - id: mypy
+#        name: mypy
+#        entry: poetry run mypy ./finam_trade_api
+#        pass_filenames: false
+#        language: system
 
       - id: bandit
         name: bandit

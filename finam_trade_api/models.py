@@ -1,16 +1,17 @@
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
-class BaseErrorModel(BaseModel):
-    code: str
+class ErrorModel(BaseModel):
+    code: int
     message: str
-    data: dict | None = None
+    details: list = Field(default_factory=list)
 
 
 class ErrorBodyModel(BaseModel):
-    error: BaseErrorModel
+    # todo remove it
+    error: dict
 
 
 class Market(str, Enum):

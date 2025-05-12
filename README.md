@@ -14,7 +14,7 @@
 
 ---
 
-FinamTradeApiPy — это Python-библиотека для лёгкого взаимодействия с публичным и/или торговым API Finam. Поддерживает котировки, авторизацию, работу с сессиями и исторические данные в удобном и Pythonic стиле.
+FinamTradeApiPy — это Python-библиотека для лёгкого взаимодействия с публичным торговым API Finam.
 
 ## 📦 Установка
 
@@ -49,6 +49,34 @@ Install with pip
 ```
     
 ## Usage/Examples
+
+```python
+import os
+
+from finam_trade_api import Client
+from finam_trade_api import TokenManager
+
+
+async def main():
+    # Получение токена из переменных окружения
+    token = os.getenv("TOKEN")
+    
+    # Инициализация клиента с менеджером токенов
+    client = Client(TokenManager(token))
+    
+    # Установка JWT-токена
+    await client.access_tokens.set_jwt_token()
+    
+    # Получение деталей JWT-токена
+    return await client.access_tokens.get_jwt_token_details()
+
+
+if __name__ == "__main__":
+    import asyncio
+
+    # Запуск асинхронного main
+    print(asyncio.run(main()))
+```
 
 ## Authors
 

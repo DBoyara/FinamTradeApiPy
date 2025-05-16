@@ -11,6 +11,7 @@
 ![Formatted with: black](https://img.shields.io/badge/format-black-black)
 ![Security Check](https://img.shields.io/badge/security-passed-brightgreen)
 ![GitHub stars](https://img.shields.io/github/stars/Dboyara/FinamTradeApiPy?style=social)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/DBoyara/FinamTradeApiPy)
 
 ---
 

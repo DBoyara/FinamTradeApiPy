@@ -1,1 +1,2 @@
 from finam_trade_api.access.access_token import TokenClient
+from finam_trade_api.access.model import TokenDetailsResponse

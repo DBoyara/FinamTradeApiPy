@@ -1,11 +1,11 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class FinamDecimal(BaseModel):
     """
     A custom decimal type for Finam API responses.
     """
-    value: float = 0.0
+    value: str = "0.0"
 
 
 class FinamDate(BaseModel):

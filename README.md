@@ -15,24 +15,28 @@
 ---
 
 FinamTradeApiPy — это Python-библиотека для лёгкого взаимодействия с публичным торговым API Finam.
+Библиотека только предоставляет удобную обертку для доступа к API и не несет ответственность за полученные и отправленные через нее данные.
 
 # Обновление FinamApi !!!
 
-Так как Finam переезжает на новое API, библиотека будет обновляться. Происходить это будет по мере появления методов REST-Api.
-Версия будет начинаться с 4.х.х-beta. Следить за развитием событий можно [в этой ветке](https://github.com/DBoyara/FinamTradeApiPy/tree/new-api)
+Так как Finam переезжает на новое API, библиотека будет обновляться.
+Версия будет начинаться с 4.х.х и уже доступна в [PyPi](https://pypi.org/project/finam-trade-api/4.0.1/).
+Предыдущая версия остановилась на [3.1.2](https://github.com/DBoyara/FinamTradeApiPy/releases/tag/3.1.2) и доступна в PyPi.
+В нее больше изменения вноситься не будут.
 
-Асинхронный REST-клиент для API [Finam](https://finamweb.github.io/trade-api-docs).
+Асинхронный REST-клиент для API [Finam](https://tradeapi.finam.ru/docs/about/).
 
-Используется [aiohttp](https://github.com/aio-libs/aiohttp) для создания клиента и [pydantic](https://github.com/pydantic/pydantic) для удобной работы с моделями данных.
-
+Используется:
+1. [aiohttp](https://github.com/aio-libs/aiohttp) для создания клиента;
+2. [pydantic](https://github.com/pydantic/pydantic) для удобной работы с моделями данных;
+3. [ruff](https://github.com/astral-sh/ruff) для линтинга;
+4. [mypy](https://github.com/python/mypy) для статической типизации;
+5. [pytest](https://github.com/pytest-dev/pytest) для тестирования;
+6. [bandit](https://github.com/PyCQA/bandit) для статического анализа безопасности;
+7. [pre-commit](https://github.com/pre-commit/pre-commit) для автоматизации линтинга и тестирования;
 
 ## Requirements
-Python >= 3.11
-
-## Documentation
-
-[Документация Trade-Api](https://trade-api.finam.ru/swagger/index.html)
-
+Python >= 3.11; < 3.14 - проверки в CI.
 
 ## Installation
 

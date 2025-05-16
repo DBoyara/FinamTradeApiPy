@@ -87,14 +87,13 @@ class TradesResponse(BaseResponse):
     trades: list[Trade]
 
 
-class OrderBookRow(BaseResponse):
+class OrderBookRow(BaseModel):
     price: FinamDecimal
     sellSize: FinamDecimal | None = None
     buySize: FinamDecimal | None = None
     action: OrderBookRowAction
     mpid: str = ""
     timestamp: datetime
-    symbol: str | None = None
 
 
 class OrderBook(BaseModel):

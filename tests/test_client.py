@@ -6,6 +6,7 @@ from finam_trade_api.client import Client
 from finam_trade_api.account.account import AccountClient
 from finam_trade_api.assets.assets import AssetsClient
 from finam_trade_api.base_client.token_manager import TokenManager
+from finam_trade_api.order import OrderClient
 
 
 @pytest.fixture
@@ -17,6 +18,6 @@ def client():
 def test_client_initialization(client):
     assert isinstance(client.account, AccountClient)
     assert isinstance(client.assets, AssetsClient)
-    # assert isinstance(client.orders, OrderClient)
+    assert isinstance(client.orders, OrderClient)
     assert isinstance(client.access_tokens, TokenClient)
     assert isinstance(client.instruments, InstrumentClient)

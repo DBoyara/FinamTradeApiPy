@@ -14,7 +14,7 @@ def base_client():
 
 @pytest.mark.asyncio
 async def test_base_client_initialization(base_client):
-    assert base_client._base_url == "https://ftrr01.finam.ru/v1"
+    assert base_client._base_url == "https://api.finam.ru/v1"
 
 
 @pytest.mark.asyncio

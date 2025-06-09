@@ -25,13 +25,13 @@ class BaseClient(ABC):
         GET = "get"
         DELETE = "delete"
 
-    def __init__(self, token_manager: TokenManager, url: str = "https://ftrr01.finam.ru/v1"):
+    def __init__(self, token_manager: TokenManager, url: str = "https://api.finam.ru/v1"):
         """
         Инициализирует экземпляр BaseClient.
 
         Параметры:
             token_manager (TokenManager): Экземпляр менеджера токенов.
-            url (str): Базовый URL для запросов. По умолчанию "https://ftrr01.finam.ru/v1".
+            url (str): Базовый URL для запросов. По умолчанию "https://api.finam.ru/v1".
         """
         self._token_manager = token_manager
         self._base_url = url

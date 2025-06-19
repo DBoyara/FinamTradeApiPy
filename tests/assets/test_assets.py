@@ -3,7 +3,8 @@ from unittest.mock import AsyncMock, patch
 
 from finam_trade_api.assets.assets import AssetsClient
 from finam_trade_api.exceptions import FinamTradeApiError
-from finam_trade_api.assets.model import ExchangesResponse, OptionsChainResponse, ScheduleResponse
+from finam_trade_api.assets.model import ExchangesResponse, OptionsChainResponse, ScheduleResponse, ClockResponse, \
+    AssetParamsResponse, AssetResponse, AssetsResponse
 
 
 @pytest.fixture
@@ -102,6 +103,65 @@ async def test_get_assets_not_implemented(assets_client):
 
 
 @pytest.mark.asyncio
-async def test_get_asset_params_not_implemented(assets_client):
-    with pytest.raises(NotImplementedError):
-        await assets_client.get_asset_params("AAPL", "account123")
+async def test_get_asset_success(assets_client):
+    symbol = "AAPL"
+    account_id = "account123"
+    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "board": "TQBR", "decimals": 2, "minStep": "0.01", "lotSize": {"value": "10"}}
+    with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
+        result = await assets_client.get_asset(symbol, account_id)
+        mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, f"/assets/{symbol}", params={"account_id": account_id})
+        assert isinstance(result, AssetResponse)
+        assert result.ticker == "AAPL"
+
+
+@pytest.mark.asyncio
+async def test_get_asset_failure(assets_client):
+    symbol = "AAPL"
+    account_id = "account123"
+    error_response = {"code": 404, "message": "Not Found", "details": []}
+    with patch.object(assets_client, "_exec_request", return_value=(error_response, False)) as mock_exec:
+        with pytest.raises(FinamTradeApiError, match="code=404 | message=Not Found"):
+            await assets_client.get_asset(symbol, account_id)
+        mock_exec.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_get_asset_params_success(assets_client):
+    symbol = "AAPL"
+    account_id = "account123"
+    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "symbol": "AAPL", "accountId": account_id, "tradeable": True, "longable": {"value": "yes", "haltedDays": 0}, "shortable": {"value": "no", "haltedDays": 0}}
+    with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
+        result = await assets_client.get_asset_params(symbol, account_id)
+        mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, f"/assets/{symbol}/params", params={"account_id": account_id})
+        assert isinstance(result, AssetParamsResponse)
+        assert result.symbol == "AAPL"
+
+
+@pytest.mark.asyncio
+async def test_get_asset_params_failure(assets_client):
+    symbol = "AAPL"
+    account_id = "account123"
+    error_response = {"code": 403, "message": "Forbidden", "details": []}
+    with patch.object(assets_client, "_exec_request", return_value=(error_response, False)) as mock_exec:
+        with pytest.raises(FinamTradeApiError, match="code=403 | message=Forbidden"):
+            await assets_client.get_asset_params(symbol, account_id)
+        mock_exec.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_get_clock_success(assets_client):
+    response_data = {"timestamp": "2023-01-01T12:00:00"}
+    with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
+        result = await assets_client.get_clock()
+        mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, "/assets/clock")
+        assert isinstance(result, ClockResponse)
+        assert result.timestamp.isoformat() == "2023-01-01T12:00:00"
+
+
+@pytest.mark.asyncio
+async def test_get_clock_failure(assets_client):
+    error_response = {"code": 400, "message": "Bad Request", "details": []}
+    with patch.object(assets_client, "_exec_request", return_value=(error_response, False)) as mock_exec:
+        with pytest.raises(FinamTradeApiError, match="code=400 | message=Bad Request"):
+            await assets_client.get_clock()
+        mock_exec.assert_called_once()

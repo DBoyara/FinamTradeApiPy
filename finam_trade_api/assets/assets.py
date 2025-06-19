@@ -1,4 +1,11 @@
-from finam_trade_api.assets.model import ExchangesResponse, OptionsChainResponse, ScheduleResponse
+from finam_trade_api.assets.model import (
+    AssetParamsResponse,
+    AssetResponse,
+    ClockResponse,
+    ExchangesResponse,
+    OptionsChainResponse,
+    ScheduleResponse,
+)
 from finam_trade_api.base_client import BaseClient
 from finam_trade_api.base_client.token_manager import TokenManager
 from finam_trade_api.exceptions import FinamTradeApiError
@@ -53,7 +60,33 @@ class AssetsClient(BaseClient):
         """
         raise NotImplementedError
 
-    async def get_asset_params(self, symbol: str, account_id: str):
+    async def get_asset(self, symbol: str, account_id: str) -> AssetResponse:
+        """
+        Получение информации по конкретному инструменту
+
+        Args:
+            symbol (str): Символ инструмента.
+            account_id (str): ID аккаунта для которого будет подбираться информация по инструменту
+
+        Returns:
+            AssetResponse: Ответ API с информацией о конкретном инструменте.
+
+        Raises:
+            FinamTradeApiError: Если запрос завершился с ошибкой.
+        """
+        response, ok = await self._exec_request(
+            self.RequestMethod.GET,
+            f"{self._url}/{symbol}",
+            params={"account_id": account_id},
+        )
+
+        if not ok:
+            err = ErrorModel(**response)
+            raise FinamTradeApiError(f"code={err.code} | message={err.message} | details={err.details}")
+
+        return AssetResponse(**response)
+
+    async def get_asset_params(self, symbol: str, account_id: str) -> AssetParamsResponse:
         """
         Получение торговых параметров по инструменту
 
@@ -62,9 +95,43 @@ class AssetsClient(BaseClient):
             account_id (str): Идентификатор аккаунта.
 
         Returns:
-            NotImplementedError: Метод не реализован.
+            AssetParamsResponse: Ответ API с торговыми параметрами инструмента.
+
+        Raises:
+            FinamTradeApiError: Если запрос завершился с ошибкой.
         """
-        raise NotImplementedError
+        response, ok = await self._exec_request(
+            self.RequestMethod.GET,
+            f"{self._url}/{symbol}/params",
+            params={"account_id": account_id},
+        )
+
+        if not ok:
+            err = ErrorModel(**response)
+            raise FinamTradeApiError(f"code={err.code} | message={err.message} | details={err.details}")
+
+        return AssetParamsResponse(**response)
+
+    async def get_clock(self) -> ClockResponse:
+        """
+        Получение времени на сервере.
+
+        Returns:
+            ClockResponse: Ответ API с информацией о времени сервера.
+
+        Raises:
+            FinamTradeApiError: Если запрос завершился с ошибкой.
+        """
+        response, ok = await self._exec_request(
+            self.RequestMethod.GET,
+            f"{self._url}/clock",
+        )
+
+        if not ok:
+            err = ErrorModel(**response)
+            raise FinamTradeApiError(f"code={err.code} | message={err.message} | details={err.details}")
+
+        return ClockResponse(**response)
 
     async def get_options_chain(self, underlying_symbol: str) -> OptionsChainResponse:
         """

@@ -23,10 +23,9 @@ async def main():
     except NotImplementedError as e:
         print("Метод get_assets не реализован:", e)
 
-    try:
-        await client.assets.get_asset_params(instrument_symbol, "some_account_id")
-    except NotImplementedError as e:
-        print("Метод get_asset_params не реализован:", e)
+    pprint(await client.assets.get_asset(instrument_symbol, "1346867"))
+
+    await client.assets.get_asset_params(instrument_symbol, "1346867")
 
 
 if __name__ == "__main__":

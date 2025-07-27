@@ -46,8 +46,8 @@ async def test_get_options_chain_success(assets_client):
         "options": [{
             "symbol": "AAPL2022-12-31C150",
             "type": "call",
-            "contractSize": {"value": "1.0"},
-            "tradeLastDay": {"year":2022, "month": 12, "day": 31},
+            "contract_size": {"value": "1.0"},
+            "trade_last_day": {"year":2022, "month": 12, "day": 31},
             "strike": {"value": "150.0"},
         }]
     }
@@ -76,7 +76,7 @@ async def test_get_schedule_success(assets_client):
         "symbol": symbol,
         "sessions": [{
             "type": "regular",
-            "interval": {"startTime": "2023-01-01T09:30:00", "endTime": "2023-01-01T16:00:00"}
+            "interval": {"start_time": "2023-01-01T09:30:00", "end_time": "2023-01-01T16:00:00"}
         }]
     }
     with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
@@ -106,7 +106,7 @@ async def test_get_assets_not_implemented(assets_client):
 async def test_get_asset_success(assets_client):
     symbol = "AAPL"
     account_id = "account123"
-    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "board": "TQBR", "decimals": 2, "minStep": "0.01", "lotSize": {"value": "10"}}
+    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "board": "TQBR", "decimals": 2, "min_step": "0.01", "lot_size": {"value": "10"}}
     with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
         result = await assets_client.get_asset(symbol, account_id)
         mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, f"/assets/{symbol}", params={"account_id": account_id})
@@ -129,7 +129,7 @@ async def test_get_asset_failure(assets_client):
 async def test_get_asset_params_success(assets_client):
     symbol = "AAPL"
     account_id = "account123"
-    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "symbol": "AAPL", "accountId": account_id, "tradeable": True, "longable": {"value": "yes", "haltedDays": 0}, "shortable": {"value": "no", "haltedDays": 0}}
+    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "symbol": "AAPL", "account_id": account_id, "tradeable": True, "longable": {"value": "yes", "halted_days": 0}, "shortable": {"value": "no", "halted_days": 0}}
     with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
         result = await assets_client.get_asset_params(symbol, account_id)
         mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, f"/assets/{symbol}/params", params={"account_id": account_id})

@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 
 class MDPermission(BaseModel):
-    quoteLevel: str
-    delayMinutes: int
+    quote_level: str
+    delay_minutes: int
     mic: str
     country: str | None = None
     continent: str | None = None
@@ -13,7 +13,7 @@ class MDPermission(BaseModel):
 
 
 class TokenDetailsResponse(BaseModel):
-    createdAt: datetime
-    expiresAt: datetime
-    mdPermissions: list[MDPermission]
-    accountIds: list[str]
+    created_at: datetime
+    expires_at: datetime
+    md_permissions: list[MDPermission]
+    account_ids: list[str]

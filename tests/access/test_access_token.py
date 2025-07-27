@@ -43,14 +43,14 @@ async def test_returns_token_details_on_successful_request():
     client = TokenClient(token_manager)
 
     token_details = {
-        "createdAt": datetime.now(),
-        "expiresAt": datetime.now(),
-        "accountIds": ["1"],
-        "mdPermissions": [{"quoteLevel": "quoteLevel", "delayMinutes": 0, "mic": "mic"}]
+        "created_at": datetime.now(),
+        "expires_at": datetime.now(),
+        "account_ids": ["1"],
+        "md_permissions": [{"quote_level": "quoteLevel", "delay_minutes": 0, "mic": "mic"}]
     }
     with patch.object(client, "_exec_request", return_value=(token_details, True)):
         result = await client.get_jwt_token_details()
         assert isinstance(result, TokenDetailsResponse)
-        assert result.createdAt
-        assert result.expiresAt
-        assert result.accountIds and "1" in result.accountIds
+        assert result.created_at
+        assert result.expires_at
+        assert result.account_ids and "1" in result.account_ids

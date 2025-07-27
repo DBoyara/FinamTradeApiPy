@@ -2,24 +2,24 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from finam_trade_api.base_client.models import FinamDecimal
+from finam_trade_api.base_client.models import FinamDecimal, FinamMoney
 
 
 class Position(BaseModel):
     symbol: str
     quantity: FinamDecimal
-    averagePrice: FinamDecimal
-    currentPrice: FinamDecimal
+    average_price: FinamDecimal
+    current_price: FinamDecimal
 
 
 class GetAccountResponse(BaseModel):
-    accountId: str
+    account_id: str
     type: str
     status: str
     equity: FinamDecimal
-    unrealizedProfit: FinamDecimal
+    unrealized_profit: FinamDecimal
     positions: list[Position] = Field(default_factory=list)
-    cash: list = Field(default_factory=list)  # todo не задокументировано
+    cash: list[FinamMoney] = Field(default_factory=list)
 
 
 class GetTransactionsRequest(BaseModel):
@@ -33,16 +33,10 @@ class GetTradesRequest(GetTransactionsRequest):
     ...
 
 
-class MoneyChange(BaseModel):
-    currencyCode: str
-    units: str
-    nanos: int
-
-
 class Trade(BaseModel):
     size: FinamDecimal
     price: FinamDecimal
-    accruedInterest: FinamDecimal
+    accrued_interest: FinamDecimal
 
 
 class Transaction(BaseModel):
@@ -50,7 +44,7 @@ class Transaction(BaseModel):
     category: str
     timestamp: str
     symbol: str
-    change: MoneyChange | None = None
+    change: FinamMoney | None = None
     trade: Trade | None = None
 
 
@@ -59,7 +53,7 @@ class GetTransactionsResponse(BaseModel):
 
 
 class AccountTrade(BaseModel):
-    tradeId: str
+    trade_id: str
     symbol: str
     price: FinamDecimal
     size: FinamDecimal

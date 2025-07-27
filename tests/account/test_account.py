@@ -26,11 +26,11 @@ async def test_get_account_info_success(account_client):
     account_id = "account123"
     # Создаем данные-заглушку на основе модели GetAccountResponse
     response_data = {
-        "accountId": account_id,
+        "account_id": account_id,
         "type": "broker",
         "status": "active",
         "equity": {"value": "1000.0"},
-        "unrealizedProfit": {"value": "50.0"},
+        "unrealized_profit": {"value": "50.0"},
         "positions": [],
         "cash": []
     }
@@ -41,7 +41,7 @@ async def test_get_account_info_success(account_client):
             f"/accounts/{account_id}",
         )
         assert isinstance(result, GetAccountResponse)
-        assert result.accountId == account_id
+        assert result.account_id == account_id
 
 @pytest.mark.asyncio
 async def test_get_account_info_failure(account_client):
@@ -114,7 +114,7 @@ async def test_get_trades_success(account_client):
     response_data = {
         "trades": [
             {
-                "tradeId": "t1",
+                "trade_id": "t1",
                 "symbol": "AAPL",
                 "price": {"value": "150.0"},
                 "size": {"value": "10.0"},
@@ -136,7 +136,7 @@ async def test_get_trades_success(account_client):
         )
         assert isinstance(result, GetTradesResponse)
         assert len(result.trades) == 1
-        assert result.trades[0].tradeId == "t1"
+        assert result.trades[0].trade_id == "t1"
 
 @pytest.mark.asyncio
 async def test_get_trades_failure(account_client):

@@ -17,9 +17,9 @@ class ExchangesResponse(BaseModel):
 class Option(BaseModel):
     symbol: str
     type: str
-    contractSize: FinamDecimal
-    tradeFirstDay: FinamDate | None = None
-    tradeLastDay: FinamDate
+    contract_size: FinamDecimal
+    trade_first_day: FinamDate | None = None
+    trade_last_day: FinamDate
     strike: FinamDecimal
     multiplier: FinamDecimal | None = None
 
@@ -30,8 +30,8 @@ class OptionsChainResponse(BaseModel):
 
 
 class SessionInterval(BaseModel):
-    startTime: datetime
-    endTime: datetime
+    start_time: datetime
+    end_time: datetime
 
 
 class Session(BaseModel):
@@ -64,26 +64,26 @@ class AssetsResponse(BaseModel):
 class AssetResponse(BaseAssetModel):
     board: str
     decimals: int
-    minStep: str
-    lotSize: FinamDecimal
-    expirationDate: str | None = None
+    min_step: str
+    lot_size: FinamDecimal
+    expiration_date: str | None = None
 
 
 class Status(BaseModel):
     value: str
-    haltedDays: int = 0
+    halted_days: int = 0
 
 
 class AssetParamsResponse(BaseModel):
     symbol: str
-    accountId: str
+    account_id: str
     tradeable: bool
     longable: Status
     shortable: Status
-    longRiskRate: FinamDecimal | None = None
-    longCollateral: FinamMoney | None = None
-    shortRiskRate: FinamDecimal | None = None
-    shortCollateral: FinamMoney | None = None
+    long_risk_rate: FinamDecimal | None = None
+    long_collateral: FinamMoney | None = None
+    short_risk_rate: FinamDecimal | None = None
+    short_collateral: FinamMoney | None = None
 
 
 class ClockResponse(BaseModel):

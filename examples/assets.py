@@ -5,6 +5,7 @@ import asyncio
 from finam_trade_api import Client, TokenManager
 
 token = os.getenv("TOKEN")
+account_id = os.getenv("ACCOUNT_ID")
 underlying_symbol = "YDEX@RTSX"
 instrument_symbol = "YDEX@MISX"
 
@@ -23,9 +24,9 @@ async def main():
     except NotImplementedError as e:
         print("Метод get_assets не реализован:", e)
 
-    pprint(await client.assets.get_asset(instrument_symbol, "1346867"))
+    pprint(await client.assets.get_asset(instrument_symbol, account_id))
 
-    await client.assets.get_asset_params(instrument_symbol, "1346867")
+    await client.assets.get_asset_params(instrument_symbol, account_id)
 
 
 if __name__ == "__main__":

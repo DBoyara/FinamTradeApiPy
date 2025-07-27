@@ -73,19 +73,19 @@ async def test_get_last_quote_success(instrument_client):
         "ask": {
             "value": "4030.5"
         },
-        "askSize": {
+        "ask_size": {
             "value": "90"
         },
         "bid": {
             "value": "4030.0"
         },
-        "bidSize": {
+        "bid_size": {
             "value": "25"
         },
         "last": {
             "value": "4030.5"
         },
-        "lastSize": {
+        "last_size": {
             "value": "39"
         },
         "volume": {

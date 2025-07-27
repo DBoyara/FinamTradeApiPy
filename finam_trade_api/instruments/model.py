@@ -57,11 +57,11 @@ class Quote(BaseModel):
     symbol: str | None = None
     timestamp: datetime
     ask: FinamDecimal
-    askSize: FinamDecimal
+    ask_size: FinamDecimal
     bid: FinamDecimal
-    bidSize: FinamDecimal
+    bid_size: FinamDecimal
     last: FinamDecimal
-    lastSize: FinamDecimal
+    last_size: FinamDecimal
     volume: FinamDecimal
     turnover: FinamDecimal
     open: FinamDecimal
@@ -76,7 +76,7 @@ class QuoteResponse(BaseResponse):
 
 
 class Trade(BaseModel):
-    tradeId: str
+    trade_id: str
     mpid: str = ""
     timestamp: datetime
     price: FinamDecimal
@@ -89,8 +89,8 @@ class TradesResponse(BaseResponse):
 
 class OrderBookRow(BaseModel):
     price: FinamDecimal
-    sellSize: FinamDecimal | None = None
-    buySize: FinamDecimal | None = None
+    sell_size: FinamDecimal | None = None
+    buy_size: FinamDecimal | None = None
     action: OrderBookRowAction
     mpid: str = ""
     timestamp: datetime

@@ -6,7 +6,6 @@ from finam_trade_api.account.model import (
     GetTradesResponse,
     GetTransactionsRequest,
     GetTransactionsResponse,
-    MoneyChange,
     Position,
     Trade,
     Transaction,

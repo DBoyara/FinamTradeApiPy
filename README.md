@@ -42,7 +42,7 @@ Python >= 3.11; < 3.14 - проверки в CI.
 ## Installation
 
 ```bash
-pip install finam-trade-api-py
+pip install finam-trade-api
 poetry add finam-trade-api
 ```
     

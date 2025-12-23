@@ -8,9 +8,7 @@ from finam_trade_api.base_client.models import FinamDecimal, FinamMoney
 
 
 class Side(str, Enum):
-    """Сторона заявки"""
-    #LONG = "long"
-    #SHORT = "short"    
+    """Сторона заявки"""    
     BUY = "SIDE_BUY"
     SELL = "SIDE_SELL"
 

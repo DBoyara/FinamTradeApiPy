@@ -82,7 +82,7 @@ class OrderClient(BaseClient):
             FinamTradeApiError: Если запрос завершился с ошибкой.
         """
         # Используем model_dump с mode='json' для корректной сериализации enum'ов
-        payload = order.model_dump(mode='json', exclude_none=True)
+        payload = order.model_dump(mode="json", exclude_none=True)
 
         response, ok = await self._exec_request(
             self.RequestMethod.POST,

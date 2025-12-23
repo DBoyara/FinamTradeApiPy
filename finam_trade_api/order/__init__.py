@@ -1,4 +1,3 @@
-from finam_trade_api.order.order import OrderClient
 from finam_trade_api.order.model import (
     CancelOrderRequest,
     GetOrderRequest,
@@ -14,3 +13,4 @@ from finam_trade_api.order.model import (
     TimeInForce,
     ValidBefore,
 )
+from finam_trade_api.order.order import OrderClient

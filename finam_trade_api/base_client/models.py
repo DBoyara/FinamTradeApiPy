@@ -22,6 +22,3 @@ class FinamMoney(BaseModel):
     A custom money type for Finam API responses.
     """
     value: str = "0"
-    #units: str = "0"
-    #currency_code: str = "RUB"
-    #nanos: int = 0

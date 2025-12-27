@@ -17,3 +17,4 @@ class TokenDetailsResponse(BaseModel):
     expires_at: datetime
     md_permissions: list[MDPermission]
     account_ids: list[str]
+    readonly: bool = False

@@ -32,7 +32,10 @@ async def test_get_account_info_success(account_client):
         "equity": {"value": "1000.0"},
         "unrealized_profit": {"value": "50.0"},
         "positions": [],
-        "cash": []
+        "cash": [],
+        "open_account_date": "2025-01-29T14:20:44Z",
+        "first_trade_date": "2025-01-29T14:20:44Z",
+        "first_non_trade_date": "2025-01-29T14:20:44Z",
     }
     with patch.object(account_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
         result = await account_client.get_account_info(account_id)
@@ -68,8 +71,10 @@ async def test_get_transactions_success(account_client):
                 "category": "deposit",
                 "timestamp": "2023-01-01T00:00:00Z",
                 "symbol": "AAPL",
-                "change": {"currencyCode": "USD", "units": "100", "nanos": 0},
-                "trade": None
+                "change": {"currency_code": "USD", "units": "100", "nanos": 0},
+                "trade": None,
+                "transaction_category": "...",
+                "transaction_name": "...",
             }
         ]
     }
@@ -119,7 +124,9 @@ async def test_get_trades_success(account_client):
                 "price": {"value": "150.0"},
                 "size": {"value": "10.0"},
                 "side": "buy",
-                "timestamp": "2023-01-01T00:00:00Z"
+                "timestamp": "2023-01-01T00:00:00Z",
+                "order_id": "123",
+                "account_id": "12345",
             }
         ]
     }

@@ -1,14 +1,13 @@
 from datetime import datetime
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from finam_trade_api.base_client.models import FinamDecimal, FinamMoney
+from finam_trade_api.base_client.models import FinamDecimal
 
 
 class Side(str, Enum):
-    """Сторона заявки"""    
+    """Сторона заявки"""
     BUY = "SIDE_BUY"
     SELL = "SIDE_SELL"
 
@@ -98,14 +97,14 @@ class Order(BaseModel):
     quantity: FinamDecimal
     side: Side
     type: OrderType
-    time_in_force: Optional[TimeInForce] = None
-    limit_price: Optional[FinamMoney] = None
-    stop_price: Optional[FinamMoney] = None
-    stop_condition: Optional[StopCondition] = None
-    legs: Optional[list[Leg]] = Field(default=None)
-    client_order_id: Optional[str] = Field(default=None, max_length=50)
-    valid_before: Optional[ValidBefore] = None
-    comment: Optional[str] = Field(default=None, max_length=128)
+    time_in_force: TimeInForce | None = None
+    limit_price: FinamDecimal | str | None = None
+    stop_price: FinamDecimal | str | None = None
+    stop_condition: StopCondition | None = None
+    legs: list[Leg] = Field(default_factory=list)
+    client_order_id: str | None = Field(default=None, max_length=20)
+    valid_before: ValidBefore | None = None
+    comment: str | None = Field(default=None, max_length=128)
 
 
 class CancelOrderRequest(BaseModel):
@@ -132,8 +131,8 @@ class OrderState(BaseModel):
     status: OrderStatus
     order: Order
     transact_at: datetime
-    accept_at: Optional[datetime] = None
-    withdraw_at: Optional[datetime] = None
+    accept_at: datetime | None = None
+    withdraw_at: datetime | None = None
 
 
 class OrdersResponse(BaseModel):

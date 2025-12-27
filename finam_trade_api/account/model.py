@@ -7,19 +7,28 @@ from finam_trade_api.base_client.models import FinamDecimal, FinamMoney
 
 class Position(BaseModel):
     symbol: str
-    quantity: FinamDecimal
-    average_price: FinamDecimal
-    current_price: FinamDecimal
+    quantity: str
+    average_price: str
+    current_price: str
+    maintenance_margin: str
+    daily_pnl: str
+    unrealized_pnl: str
 
 
 class GetAccountResponse(BaseModel):
     account_id: str
     type: str
     status: str
-    equity: FinamDecimal
-    unrealized_profit: FinamDecimal
+    equity: FinamDecimal | str | None = None
+    unrealized_profit: FinamDecimal | str | None = None
     positions: list[Position] = Field(default_factory=list)
     cash: list[FinamMoney] = Field(default_factory=list)
+    portfolio_mc: dict = Field(default_factory=dict)
+    portfolio_mct: dict = Field(default_factory=dict)
+    portfolio_forts: dict = Field(default_factory=dict)
+    open_account_date: datetime
+    first_trade_date: datetime
+    first_non_trade_date: datetime
 
 
 class GetTransactionsRequest(BaseModel):
@@ -46,6 +55,9 @@ class Transaction(BaseModel):
     symbol: str
     change: FinamMoney | None = None
     trade: Trade | None = None
+    transaction_category: str
+    transaction_name: str
+    change_qty: str | None = None
 
 
 class GetTransactionsResponse(BaseModel):
@@ -59,6 +71,9 @@ class AccountTrade(BaseModel):
     size: FinamDecimal
     side: str
     timestamp: datetime
+    order_id: str
+    account_id: str
+    comment: str = ""
 
 
 class GetTradesResponse(BaseModel):

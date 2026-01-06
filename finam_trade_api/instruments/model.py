@@ -3,7 +3,7 @@ from enum import Enum
 
 from pydantic import BaseModel
 
-from finam_trade_api.base_client.models import FinamDecimal
+from finam_trade_api.base_client.models import FinamDecimal, Side
 
 
 class OrderBookRowAction(str, Enum):
@@ -81,6 +81,7 @@ class Trade(BaseModel):
     timestamp: datetime
     price: FinamDecimal
     size: FinamDecimal
+    side: Side
 
 
 class TradesResponse(BaseResponse):

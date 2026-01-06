@@ -3,13 +3,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-from finam_trade_api.base_client.models import FinamDecimal
-
-
-class Side(str, Enum):
-    """Сторона заявки"""
-    BUY = "SIDE_BUY"
-    SELL = "SIDE_SELL"
+from finam_trade_api.base_client.models import FinamDecimal, Side
 
 
 class OrderStatus(str, Enum):

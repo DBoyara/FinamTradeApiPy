@@ -1,3 +1,5 @@
+from enum import StrEnum
+
 from pydantic import BaseModel
 
 
@@ -24,3 +26,9 @@ class FinamMoney(BaseModel):
     currency_code: str
     units: str
     nanos: int
+
+
+class Side(StrEnum):
+    """Сторона заявки"""
+    BUY = "SIDE_BUY"
+    SELL = "SIDE_SELL"

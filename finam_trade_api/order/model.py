@@ -96,7 +96,7 @@ class Order(BaseModel):
     stop_price: FinamDecimal | str | None = None
     stop_condition: StopCondition | None = None
     legs: list[Leg] = Field(default_factory=list)
-    client_order_id: str | None = Field(default=None, max_length=20)
+    client_order_id: str | None = Field(default=None, max_length=64)
     valid_before: ValidBefore | None = None
     comment: str | None = Field(default=None, max_length=128)
 
@@ -127,6 +127,9 @@ class OrderState(BaseModel):
     transact_at: datetime
     accept_at: datetime | None = None
     withdraw_at: datetime | None = None
+    initial_quantity: FinamDecimal | str | None = None
+    executed_quantity: FinamDecimal | str | None = None
+    remaining_quantity: FinamDecimal | str | None = None
 
 
 class OrdersResponse(BaseModel):

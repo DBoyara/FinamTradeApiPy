@@ -4,6 +4,7 @@ from finam_trade_api.assets import AssetsClient
 from finam_trade_api.base_client.token_manager import TokenManager
 from finam_trade_api.instruments import InstrumentClient
 from finam_trade_api.order import OrderClient
+from finam_trade_api.quotas import QuotasClient
 
 
 class Client:
@@ -13,3 +14,4 @@ class Client:
         self.orders = OrderClient(token_manger)
         self.access_tokens = TokenClient(token_manger)
         self.instruments = InstrumentClient(token_manger)
+        self.quotas = QuotasClient(token_manger)

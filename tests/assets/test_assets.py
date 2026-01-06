@@ -97,16 +97,22 @@ async def test_get_schedule_failure(assets_client):
 
 
 @pytest.mark.asyncio
-async def test_get_assets_not_implemented(assets_client):
-    with pytest.raises(NotImplementedError):
-        await assets_client.get_assets()
-
-
-@pytest.mark.asyncio
 async def test_get_asset_success(assets_client):
     symbol = "AAPL"
     account_id = "account123"
-    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "board": "TQBR", "decimals": 2, "min_step": "0.01", "lot_size": {"value": "10"}}
+    response_data = {
+        "id": "1",
+        "ticker": "AAPL",
+        "mic": "MIC123",
+        "isin": "US0378331005",
+        "type": "stock",
+        "name": "Apple Inc.",
+        "board": "TQBR",
+        "decimals": 2,
+        "min_step": "0.01",
+        "lot_size": {"value": "10"},
+        "quote_currency": "EUR"
+    }
     with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
         result = await assets_client.get_asset(symbol, account_id)
         mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, f"/assets/{symbol}", params={"account_id": account_id})
@@ -129,7 +135,20 @@ async def test_get_asset_failure(assets_client):
 async def test_get_asset_params_success(assets_client):
     symbol = "AAPL"
     account_id = "account123"
-    response_data = {"id": "1", "ticker": "AAPL", "mic": "MIC123", "isin": "US0378331005", "type": "stock", "name": "Apple Inc.", "symbol": "AAPL", "account_id": account_id, "tradeable": True, "longable": {"value": "yes", "halted_days": 0}, "shortable": {"value": "no", "halted_days": 0}}
+    response_data = {
+        "id": "1",
+        "ticker": "AAPL",
+        "mic": "MIC123",
+        "isin": "US0378331005",
+        "type": "stock",
+        "name": "Apple Inc.",
+        "symbol": "AAPL",
+        "account_id": account_id,
+        "tradeable": True,
+        "is_tradable": True,
+        "longable": {"value": "yes", "halted_days": 0},
+        "shortable": {"value": "no", "halted_days": 0}
+    }
     with patch.object(assets_client, "_exec_request", return_value=(response_data, True)) as mock_exec:
         result = await assets_client.get_asset_params(symbol, account_id)
         mock_exec.assert_called_once_with(assets_client.RequestMethod.GET, f"/assets/{symbol}/params", params={"account_id": account_id})

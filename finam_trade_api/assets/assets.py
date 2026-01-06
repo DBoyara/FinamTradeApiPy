@@ -1,6 +1,7 @@
 from finam_trade_api.assets.model import (
     AssetParamsResponse,
     AssetResponse,
+    AssetsResponse,
     ClockResponse,
     ExchangesResponse,
     OptionsChainResponse,
@@ -51,14 +52,26 @@ class AssetsClient(BaseClient):
 
         return ExchangesResponse(**response)
 
-    async def get_assets(self):
+    async def get_assets(self) -> AssetsResponse:
         """
         Получение списка доступных инструментов, их описание
 
         Returns:
-            NotImplementedError: Метод не реализован.
+            AssetsResponse: Ответ API с информацией о всех инструментах.
+
+        Raises:
+            FinamTradeApiError: Если запрос завершился с ошибкой.
         """
-        raise NotImplementedError
+        response, ok = await self._exec_request(
+            self.RequestMethod.GET,
+            self._url,
+        )
+
+        if not ok:
+            err = ErrorModel(**response)
+            raise FinamTradeApiError(f"code={err.code} | message={err.message} | details={err.details}")
+
+        return AssetsResponse(**response)
 
     async def get_asset(self, symbol: str, account_id: str) -> AssetResponse:
         """

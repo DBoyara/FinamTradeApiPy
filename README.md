@@ -18,13 +18,6 @@
 FinamTradeApiPy — это Python-библиотека для лёгкого взаимодействия с публичным торговым API Finam.
 Библиотека только предоставляет удобную обертку для доступа к API и не несет ответственность за полученные и отправленные через нее данные.
 
-# Обновление FinamApi !!!
-
-Так как Finam переезжает на новое API, библиотека будет обновляться.
-Версия будет начинаться с 4.х.х и уже доступна в [PyPi](https://pypi.org/project/finam-trade-api/4.0.1/).
-Предыдущая версия остановилась на [3.1.2](https://github.com/DBoyara/FinamTradeApiPy/releases/tag/3.1.2) и доступна в PyPi.
-В нее больше изменения вноситься не будут.
-
 Асинхронный REST-клиент для API [Finam](https://tradeapi.finam.ru/docs/about/).
 
 Используется:
@@ -44,8 +37,9 @@ Python >= 3.11; < 3.14 - проверки в CI.
 ```bash
 pip install finam-trade-api
 poetry add finam-trade-api
+uv add finam-trade-api
 ```
-    
+
 ## Usage/Examples
 
 ### Получение токена

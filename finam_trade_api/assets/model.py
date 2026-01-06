@@ -22,6 +22,8 @@ class Option(BaseModel):
     trade_last_day: FinamDate
     strike: FinamDecimal
     multiplier: FinamDecimal | None = None
+    expiration_first_day: FinamDate | None = None
+    expiration_last_day: FinamDate | None = None
 
 
 class OptionsChainResponse(BaseModel):
@@ -67,6 +69,7 @@ class AssetResponse(BaseAssetModel):
     min_step: str
     lot_size: FinamDecimal
     expiration_date: str | None = None
+    quote_currency: str
 
 
 class Status(BaseModel):
@@ -78,6 +81,7 @@ class AssetParamsResponse(BaseModel):
     symbol: str
     account_id: str
     tradeable: bool
+    is_tradable: bool
     longable: Status
     shortable: Status
     long_risk_rate: FinamDecimal | None = None

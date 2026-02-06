@@ -1,4 +1,4 @@
-from unittest.mock import AsyncMock, patch
+from unittest.mock import Mock, AsyncMock, patch
 
 import pytest
 
@@ -18,15 +18,16 @@ async def test_base_client_initialization(base_client):
 
 
 @pytest.mark.asyncio
-@patch('aiohttp.ClientSession')
+@patch('httpx.AsyncClient')
 async def test_exec_request_success(mock_session, base_client):
     mock_response = AsyncMock()
-    mock_response.status = 200
-    mock_response.json = AsyncMock(return_value={"key": "value"})
+    mock_response.status_code = 200
+    mock_response.headers = {"content-type": "application/json"}
+    mock_response.json = Mock(return_value={"key": "value"})
 
     mock_session_instance = mock_session.return_value
     mock_session_instance.__aenter__.return_value = mock_session_instance
-    mock_session_instance.request.return_value.__aenter__.return_value = mock_response
+    mock_session_instance.request = AsyncMock(return_value=mock_response)
 
     response, success = await base_client._exec_request("get", "/test-url")
     assert success is True
@@ -34,15 +35,16 @@ async def test_exec_request_success(mock_session, base_client):
 
 
 @pytest.mark.asyncio
-@patch('aiohttp.ClientSession')
+@patch('httpx.AsyncClient')
 async def test_exec_request_failure(mock_session, base_client):
     mock_response = AsyncMock()
-    mock_response.status = 404
-    mock_response.json = AsyncMock(return_value={"error": "not found"})
+    mock_response.status_code = 404
+    mock_response.headers = {"content-type": "application/json"}
+    mock_response.json = Mock(return_value={"error": "not found"})
 
     mock_session_instance = mock_session.return_value
     mock_session_instance.__aenter__.return_value = mock_session_instance
-    mock_session_instance.request.return_value.__aenter__.return_value = mock_response
+    mock_session_instance.request = AsyncMock(return_value=mock_response)
 
     response, success = await base_client._exec_request("get", "/test-url")
     assert success is False

@@ -2,7 +2,7 @@ from abc import ABC
 from enum import Enum
 from typing import Any
 
-import aiohttp
+import httpx
 
 from .token_manager import TokenManager
 
@@ -60,14 +60,14 @@ class BaseClient(ABC):
             tuple[Any, bool]: Кортеж, содержащий JSON-ответ и статус успешности запроса (True/False).
 
         Исключения:
-            aiohttp.ClientResponseError: Если статус ответа не 200 и content_type не "application/json".
+            httpx.HTTPError: Если статус ответа не 200 и content_type не "application/json".
         """
         uri = f"{self._base_url}{url}"
 
-        async with aiohttp.ClientSession(headers=self._auth_headers) as session:
-            async with session.request(method, uri, json=payload, **kwargs) as response:
-                if response.status != 200:
-                    if response.content_type != "application/json":
-                        response.raise_for_status()
-                    return await response.json(), False
-                return await response.json(), True
+        async with httpx.AsyncClient(headers=self._auth_headers, http2=True) as client:
+            response = await client.request(method, uri, json=payload, **kwargs)
+            if response.status_code != 200:
+                if "application/json" not in response.headers.get("content-type", ""):
+                    response.raise_for_status()
+                return response.json(), False
+            return response.json(), True

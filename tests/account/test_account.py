@@ -24,15 +24,55 @@ def account_client(token_manager):
 @pytest.mark.asyncio
 async def test_get_account_info_success(account_client):
     account_id = "account123"
-    # Создаем данные-заглушку на основе модели GetAccountResponse
+    # finam example
     response_data = {
         "account_id": account_id,
-        "type": "broker",
-        "status": "active",
-        "equity": {"value": "1000.0"},
-        "unrealized_profit": {"value": "50.0"},
-        "positions": [],
-        "cash": [],
+        "type": "UNION",
+        "status": "ACCOUNT_ACTIVE",
+        "equity": {
+            "value": "989.38"
+        },
+        "unrealized_profit": {
+            "value": "0.4"
+        },
+        "positions": [
+            {
+                "symbol": "AFLT@MISX",
+                "quantity": {
+                    "value": "10.0"
+                },
+                "average_price": {
+                    "value": "62.72"
+                },
+                "current_price": {
+                    "value": "62.76"
+                },
+                "daily_pnl": {
+                    "value": "0.4"
+                },
+                "unrealized_pnl": {
+                    "value": "0.4"
+                }
+            }
+        ],
+        "cash": [
+            {
+                "currency_code": "RUB",
+                "units": "361",
+                "nanos": 7800000
+            }
+        ],
+        "portfolio_mc": {
+            "available_cash": {
+                "value": "361.78"
+            },
+            "initial_margin": {
+                "value": "627.6"
+            },
+            "maintenance_margin": {
+                "value": "313.8"
+            }
+        },
         "open_account_date": "2025-01-29T14:20:44Z",
         "first_trade_date": "2025-01-29T14:20:44Z",
         "first_non_trade_date": "2025-01-29T14:20:44Z",

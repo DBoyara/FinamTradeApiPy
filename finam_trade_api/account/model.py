@@ -7,12 +7,12 @@ from finam_trade_api.base_client.models import FinamDecimal, FinamMoney
 
 class Position(BaseModel):
     symbol: str
-    quantity: str
-    average_price: str
-    current_price: str
-    maintenance_margin: str
-    daily_pnl: str
-    unrealized_pnl: str
+    quantity: FinamDecimal
+    average_price: FinamDecimal
+    current_price: FinamDecimal
+    maintenance_margin: FinamDecimal | None = None
+    daily_pnl: FinamDecimal
+    unrealized_pnl: FinamDecimal
 
 
 class GetAccountResponse(BaseModel):

@@ -26,6 +26,34 @@ class TokenClient(BaseClient):
         super().__init__(token_manager)
         self._url = "/sessions"
 
+    async def _exec_request(self, method: str, url: str, payload=None, **kwargs):
+        """
+        Переопределенный метод выполнения запроса без автоматического обновления токена.
+
+        TokenClient не должен пытаться обновлять токен сам для себя,
+        чтобы избежать бесконечной рекурсии.
+
+        Параметры:
+            method (str): HTTP-метод (GET, POST, PUT, DELETE).
+            url (str): Путь к ресурсу относительно базового URL.
+            payload (dict | None): Тело запроса в формате JSON. По умолчанию None.
+            **kwargs: Дополнительные параметры для httpx.
+
+        Возвращает:
+            tuple[Any, bool]: Кортеж, содержащий JSON-ответ и статус успешности запроса (True/False).
+        """
+        import httpx
+
+        uri = f"{self._base_url}{url}"
+
+        async with httpx.AsyncClient(headers=self._auth_headers, http2=True) as client:
+            response = await client.request(method, uri, json=payload, **kwargs)
+            if response.status_code != 200:
+                if "application/json" not in response.headers.get("content-type", ""):
+                    response.raise_for_status()
+                return response.json(), False
+            return response.json(), True
+
     async def set_jwt_token(self):
         """
         Устанавливает JWT-токен, выполняя запрос к API.

@@ -68,7 +68,7 @@ class AssetResponse(BaseAssetModel):
     decimals: int
     min_step: str
     lot_size: FinamDecimal
-    expiration_date: str | None = None
+    expiration_date: FinamDate | None = None
     quote_currency: str
 
 

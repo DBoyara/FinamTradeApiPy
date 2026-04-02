@@ -166,3 +166,18 @@ async def test_should_not_refresh_token_when_recent(base_client):
     """Тест что токен не должен быть обновлен, если обновлялся недавно"""
     base_client._last_token_refresh = datetime.now() - timedelta(minutes=5)
     assert base_client._should_refresh_token() is False
+
+
+@pytest.mark.asyncio
+async def test_auth_headers_with_jwt_token(base_client):
+    """Тест что _auth_headers возвращает JWT токен если он установлен"""
+    base_client._token_manager.set_jwt_token("jwt_token")
+    headers = base_client._auth_headers
+    assert headers == {"Authorization": "jwt_token"}
+
+
+@pytest.mark.asyncio
+async def test_auth_headers_without_jwt_token(base_client):
+    """Тест что _auth_headers возвращает None если jwt_token не установлен"""
+    headers = base_client._auth_headers
+    assert headers is None

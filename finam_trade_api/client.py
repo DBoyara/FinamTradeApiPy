@@ -11,7 +11,7 @@ class Client:
     """
     Главный клиент для работы с Finam Trade API.
 
-    Автоматически настраивает обновление JWT токенов для всех подклиентов.
+    Настраивает обновление JWT токенов для всех подклиентов при auto_refresh_tokens=True.
 
     Атрибуты:
         account (AccountClient): Клиент для работы со счетами.
@@ -22,15 +22,20 @@ class Client:
         quotas (QuotasClient): Клиент для работы с квотами.
     """
 
-    def __init__(self, token_manger: TokenManager):
+    def __init__(self, token_manger: TokenManager, auto_refresh_tokens: bool = True):
         """
         Инициализирует главный клиент и все его подклиенты.
 
-        Автоматически настраивает token_client для всех подклиентов,
-        чтобы они могли автоматически обновлять JWT токен.
+        При auto_refresh_tokens=True автоматически настраивает token_client для всех
+        подклиентов, чтобы они могли автоматически обновлять JWT токен.
+
+        При auto_refresh_tokens=False необходимо самостоятельно вызвать
+        client.access_tokens.set_jwt_token() после создания клиента.
 
         Параметры:
             token_manger (TokenManager): Менеджер токенов для авторизации.
+            auto_refresh_tokens (bool): Включить автоматическое обновление JWT токена.
+                По умолчанию True.
         """
         self.account = AccountClient(token_manger)
         self.assets = AssetsClient(token_manger)
@@ -39,8 +44,9 @@ class Client:
         self.instruments = InstrumentClient(token_manger)
         self.quotas = QuotasClient(token_manger)
 
-        self.account.set_token_client(self.access_tokens)
-        self.assets.set_token_client(self.access_tokens)
-        self.orders.set_token_client(self.access_tokens)
-        self.instruments.set_token_client(self.access_tokens)
-        self.quotas.set_token_client(self.access_tokens)
+        if auto_refresh_tokens:
+            self.account.set_token_client(self.access_tokens)
+            self.assets.set_token_client(self.access_tokens)
+            self.orders.set_token_client(self.access_tokens)
+            self.instruments.set_token_client(self.access_tokens)
+            self.quotas.set_token_client(self.access_tokens)

@@ -43,7 +43,7 @@ class OfferDetails(BaseModel):
 class BondEvent(BaseModel):
     """Событие по облигации."""
     date: FinamDate
-    type: str = BondEventType.UNSPECIFIED
+    type: BondEventType | str = BondEventType.UNSPECIFIED
     value: FinamDecimal | None = None
     currency: str | None = None
     coupon_details: CouponDetails | None = None

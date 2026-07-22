@@ -2,6 +2,7 @@ from finam_trade_api.access import TokenClient
 from finam_trade_api.account import AccountClient
 from finam_trade_api.assets import AssetsClient
 from finam_trade_api.base_client.token_manager import TokenManager
+from finam_trade_api.corporate_actions import CorporateActionsClient
 from finam_trade_api.instruments import InstrumentClient
 from finam_trade_api.order import OrderClient
 from finam_trade_api.quotas import QuotasClient
@@ -20,6 +21,7 @@ class Client:
         access_tokens (TokenClient): Клиент для работы с токенами.
         instruments (InstrumentClient): Клиент для работы с инструментами.
         quotas (QuotasClient): Клиент для работы с квотами.
+        corporate_actions (CorporateActionsClient): Клиент для работы с корпоративными действиями.
     """
 
     def __init__(self, token_manger: TokenManager, auto_refresh_tokens: bool = True):
@@ -43,6 +45,7 @@ class Client:
         self.access_tokens = TokenClient(token_manger)
         self.instruments = InstrumentClient(token_manger)
         self.quotas = QuotasClient(token_manger)
+        self.corporate_actions = CorporateActionsClient(token_manger)
 
         if auto_refresh_tokens:
             self.account.set_token_client(self.access_tokens)
@@ -50,3 +53,4 @@ class Client:
             self.orders.set_token_client(self.access_tokens)
             self.instruments.set_token_client(self.access_tokens)
             self.quotas.set_token_client(self.access_tokens)
+            self.corporate_actions.set_token_client(self.access_tokens)

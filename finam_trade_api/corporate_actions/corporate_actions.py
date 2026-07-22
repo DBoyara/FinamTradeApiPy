@@ -142,10 +142,10 @@ class CorporateActionsClient(BaseClient):
         if sort_direction:
             params["sort_direction"] = sort_direction.value
 
-        if limit:
+        if limit is not None:
             params["limit"] = limit
 
-        if offset:
+        if offset is not None:
             params["offset"] = offset
 
         return params

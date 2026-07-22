@@ -152,7 +152,7 @@ async def test_get_past_bonds_events_failure(corporate_actions_client):
     with patch.object(
         corporate_actions_client, "_exec_request", return_value=(error_response, False)
     ) as mock_exec:
-        with pytest.raises(FinamTradeApiError, match="code=500 | message=Internal Error"):
+        with pytest.raises(FinamTradeApiError, match=r"code=500 \| message=Internal Error"):
             await corporate_actions_client.get_past_bonds_events()
         mock_exec.assert_called_once()
 

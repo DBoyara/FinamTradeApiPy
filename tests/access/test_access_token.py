@@ -20,6 +20,7 @@ async def test_sets_jwt_token_on_successful_response():
             client.RequestMethod.POST,
             "/sessions",
             payload={"secret": "valid_secret"},
+            use_auth_header=False,
         )
         token_manager.set_jwt_token.assert_called_once_with("jwt_token")
 

@@ -26,7 +26,7 @@ class TokenClient(BaseClient):
         super().__init__(token_manager)
         self._url = "/sessions"
 
-    async def _exec_request(self, method: str, url: str, payload=None, **kwargs):
+    async def _exec_request(self, method: str, url: str, payload=None, use_auth_header=True, **kwargs):
         """
         Переопределенный метод выполнения запроса без автоматического обновления токена.
 
@@ -37,6 +37,7 @@ class TokenClient(BaseClient):
             method (str): HTTP-метод (GET, POST, PUT, DELETE).
             url (str): Путь к ресурсу относительно базового URL.
             payload (dict | None): Тело запроса в формате JSON. По умолчанию None.
+            use_auth_header (bool): Использовать ли заголовок Authorization. По умолчанию True.
             **kwargs: Дополнительные параметры для httpx.
 
         Возвращает:
@@ -46,7 +47,10 @@ class TokenClient(BaseClient):
 
         uri = f"{self._base_url}{url}"
 
-        async with httpx.AsyncClient(headers=self._auth_headers, http2=True) as client:
+        # Используем заголовки только если use_auth_header=True и JWT-токен есть
+        headers = self._auth_headers if use_auth_header else None
+
+        async with httpx.AsyncClient(headers=headers, http2=True) as client:
             response = await client.request(method, uri, json=payload, **kwargs)
             if response.status_code != 200:
                 if "application/json" not in response.headers.get("content-type", ""):
@@ -68,6 +72,7 @@ class TokenClient(BaseClient):
             self.RequestMethod.POST,
             self._url,
             payload={"secret": self._token_manager.token},
+            use_auth_header=False,
         )
 
         if not ok:
@@ -92,6 +97,7 @@ class TokenClient(BaseClient):
             self.RequestMethod.POST,
             f"{self._url}/details",
             payload={"token": self._token_manager.jwt_token},
+            use_auth_header=False,
         )
 
         if not ok:
